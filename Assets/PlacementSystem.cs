@@ -11,13 +11,14 @@ public class PlacementSystem : MonoBehaviour
     private LevelManager _levelManager;
     private Grid _grid;
     private PathFinding _pathFiding;
-    
+
 
     [Header("Placement")]
     public GameObject Placement;
     private bool _isBuilding;
     public Material _validate;
     public Material _invalid;
+    private Material _current;
     private Renderer _placementMaterial;
 
     private void Start()
@@ -27,6 +28,7 @@ public class PlacementSystem : MonoBehaviour
         _grid = this.transform.parent.GetComponentInChildren<Grid>();
         _levelManager = LevelManager.instance;
         _placementMaterial = Placement.GetComponent<Renderer>();
+        _current = _placementMaterial.sharedMaterial;
     }
 
     private void Update()
@@ -46,34 +48,54 @@ public class PlacementSystem : MonoBehaviour
         }
 
         if (!_isBuilding) return;
-        Vector3 gridPos = this._inputManager.GetSelectedMapPosition();
-        Node currentNode = _grid.NodeFromWorldPoint(gridPos);
+        Node currentNode = GetCurrentNodeWithMouse();
         this.Placement.transform.position = currentNode.GetWorldPosition();
-        _grid.UpdateGridNode(currentNode);
-        _pathFiding.StartFindingPath(_levelManager.StartPoint, _levelManager.EndPoint);
+        UpdatePath(currentNode);
 
-        if (_pathFiding.canMove)
+        bool canPlacement = CheckPlacement();
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canPlacement)
         {
-            _placementMaterial.sharedMaterial = _validate;
-            // Intitance object 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                PlaceObject(currentNode.GetWorldPosition());
-            }
+            PlaceObject(currentNode.GetWorldPosition());
         }
-        else
-        {
-            _placementMaterial.sharedMaterial = _invalid;
-        }
-
     }
 
     private void PlaceObject(Vector3 position)
     {
-        Instantiate(Placement, position, Quaternion.identity);
+        GameObject objectPlacement = Instantiate(Placement, position, Quaternion.identity);
+        // set default material
+        objectPlacement.GetComponent<Renderer>().sharedMaterial = _current;
+        // reset building
         this._isBuilding = false;
+        // hide object place
+        this.Placement.SetActive(false);
     }
 
+    private Node GetCurrentNodeWithMouse()
+    {
+        Vector3 gridPos = this._inputManager.GetSelectedMapPosition();
+        Node currentNode = _grid.NodeFromWorldPoint(gridPos);
+        return currentNode;
+    }
+
+    private void UpdatePath(Node currentNode)
+    {
+        _grid.UpdateGridNode(currentNode);
+        _pathFiding.StartFindingPath(_levelManager.StartPoint, _levelManager.EndPoint);
+    }
+
+    private bool CheckPlacement()
+    {
+        if (_pathFiding.CanMove)
+        {
+            _placementMaterial.sharedMaterial = _validate;
+            return true;
+        }
+        else
+        {
+            _placementMaterial.sharedMaterial = _invalid;
+            return false;
+        }
+    }
 
 
 }

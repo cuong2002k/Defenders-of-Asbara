@@ -20,7 +20,6 @@ public class PathManager : MonoBehaviour
 
     private void ShowPath()
     {
-      
         _lineRenderer.positionCount = _path.Count;
         for (int i = 0; i < _path.Count; i++)
         {

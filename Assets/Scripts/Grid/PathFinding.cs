@@ -7,9 +7,9 @@ public class PathFinding : MonoBehaviour
 {
     private Grid _grid;
     private Vector3[] _wayPoint = new Vector3[0];
-    public Vector3[] wayPoint => _wayPoint;
+    public Vector3[] WayPoint => _wayPoint;
     private bool _canMove;
-    public bool canMove => _canMove;
+    public bool CanMove => _canMove;
 
     private PathManager _pathManager;
 
@@ -49,7 +49,7 @@ public class PathFinding : MonoBehaviour
             if (currentNode == targetNode)
             {
                 _wayPoint = RetracePath(startNode, targetNode);
-                
+
                 return true;
             }
 
@@ -91,7 +91,7 @@ public class PathFinding : MonoBehaviour
         _pathManager.SetPath(path);
         Vector3[] wayPoint = SimplifyPath(path);
         Array.Reverse(wayPoint);
-        
+
         return wayPoint;
     }
 
