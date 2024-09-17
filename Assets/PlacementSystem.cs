@@ -26,7 +26,7 @@ public class PlacementSystem : MonoBehaviour
         _inputManager = this.transform.parent.GetComponentInChildren<InputManager>();
         _pathFiding = this.transform.parent.GetComponentInChildren<PathFinding>();
         _grid = this.transform.parent.GetComponentInChildren<Grid>();
-        _levelManager = LevelManager.instance;
+        _levelManager = LevelManager.Instance;
         _placementMaterial = Placement.GetComponent<Renderer>();
         _current = _placementMaterial.sharedMaterial;
     }
