@@ -79,8 +79,7 @@ public class PlacementSystem : MonoBehaviour
 
     private void UpdatePath(Node currentNode)
     {
-        _grid.UpdateGridNode(currentNode);
-        _pathFiding.StartFindingPath(_levelManager.StartPoint, _levelManager.EndPoint);
+      PathManager.Instance.UpdatePath(currentNode);
     }
 
     private bool CheckPlacement()

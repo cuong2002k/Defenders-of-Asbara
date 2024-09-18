@@ -37,12 +37,12 @@ public class Wave : TimerBehavior
     private void SpawnCurrent()
     {
         Spawn();
-        // if(TrySetupNextWave())
-        // {
-        //     this.SafeCompleteEvent();
+        if(!TrySetupNextWave())
+        {
+            this.SafeCompleteEvent();
 
-        //     //
-        // }
+            //
+        }
     }   
 
     private void Spawn()
@@ -78,9 +78,10 @@ public class Wave : TimerBehavior
     {
         Vector3 startPosition =pos ;
         Enemy enemy = Instantiate(enemyConfig._enemyPrefabs).GetComponent<Enemy>();
+        enemy.SetPath(PathManager.Instance.Paths);
         enemy.transform.position = startPosition;
-        
 
+      
     }
 
 }

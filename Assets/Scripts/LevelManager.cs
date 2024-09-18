@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 [RequireComponent(typeof(WaveManager))]
 public class LevelManager : Singleton<LevelManager>
@@ -14,16 +15,18 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private Transform _endPoint;
     public Vector3 StartPoint => _startPoint.transform.position;
     public Vector3 EndPoint => _endPoint.transform.position;
-    [SerializeField] private Vector3[] _path;
-
     private LevelState _levelState;
     protected override void Awake()
     {
         base.Awake();
         _waveManager = GetComponent<WaveManager>();
         _waveManager.WaveComplete += OnSpawnComplete;
-
         this._levelState = LevelState.BUILDING;
+    }
+
+    private void Start()
+    {
+      
     }
 
     private void ChangeLevelState(LevelState newState)
