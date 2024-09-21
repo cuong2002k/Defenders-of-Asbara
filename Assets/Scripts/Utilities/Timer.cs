@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Timer
 {
     /// <summary>
@@ -13,7 +14,7 @@ public class Timer
     /// <summary>
     /// time using 
     /// </summary>
-    private float _currentTime, _timer;
+    [SerializeField]private float _currentTime, _timer;
 
     /// <summary>
     ///  Timer contructer

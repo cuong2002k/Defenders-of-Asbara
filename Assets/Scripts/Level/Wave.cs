@@ -40,15 +40,16 @@ public class Wave : TimerBehavior
         if(!TrySetupNextWave())
         {
             this.SafeCompleteEvent();
-
             //
+            this._currentWaveIndex = this._waveIntruction.Count;
+            this.StopTimer(this._repeatTimer);
         }
     }   
 
     private void Spawn()
     {
         SpawnIntruction intruction = this._waveIntruction[_currentWaveIndex];
-        Vector3 pos = new Vector3(3.99f, 0, 0.98f);
+        Vector3 pos = new Vector3(4.42f, 0, 4.42f);
         SpawnIntruction(intruction.EnemyPrefabs, pos);
     }
 

@@ -7,7 +7,12 @@ public class Enemy : MonoBehaviour
     private Node startNode;
     private List<Node> _agent = new List<Node>();
     private int _pathIndex = 0;
-    private float _speed = 10f;
+    private float _speed = 3f;
+
+    private void Start()
+    {
+      LevelManager.Instance.AddEnemyNumber();
+    }
 
     public void SetPath(List<Node> agent)
     {
@@ -16,7 +21,13 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if(_pathIndex >= _agent.Count) return;
+        if(_pathIndex >= _agent.Count) 
+        {
+          LevelManager.Instance.MinusEnemyNumber();
+          Destroy(this.gameObject);
+          return;
+        }
+        
         Vector3 positionMove = _agent[_pathIndex].GetWorldPosition();
         float distance = Vector3.Distance(this.transform.position, positionMove);
         if(distance <= 0.1f)

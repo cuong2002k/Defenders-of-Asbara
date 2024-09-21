@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class RepeatTimer : Timer
 {
     public RepeatTimer(float newTimer, Action callBack) : base(newTimer, callBack)

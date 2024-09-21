@@ -6,5 +6,6 @@ public enum LevelState{
     WIN,
     LOSE,
     BUILDING,
-    SPAWN_ENEMIES
+    SPAWN_ENEMIES,
+    ALL_ENEMIES_SPAWN
 }

@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting;
 using UnityEngine;
 [RequireComponent(typeof(WaveManager))]
 public class LevelManager : Singleton<LevelManager>
@@ -10,12 +8,15 @@ public class LevelManager : Singleton<LevelManager>
 
     [Header("Wave infor")]
     private WaveManager _waveManager;
-
+    public WaveManager WaveManager => _waveManager;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Transform _endPoint;
     public Vector3 StartPoint => _startPoint.transform.position;
     public Vector3 EndPoint => _endPoint.transform.position;
-    private LevelState _levelState;
+    [SerializeField]private LevelState _levelState;
+
+    [SerializeField]private int _enemyNumber = 0;
+
     protected override void Awake()
     {
         base.Awake();
@@ -41,8 +42,16 @@ public class LevelManager : Singleton<LevelManager>
           case LevelState.BUILDING:
             break;
           case LevelState.WIN:
+            Debug.Log("Win");
             break;
           case LevelState.LOSE:
+            Debug.Log("Lose");
+            break;
+          case LevelState.ALL_ENEMIES_SPAWN:
+            if(_enemyNumber == 0)
+            {
+              Debug.Log("Level Complete");
+            }
             break;
         }
     }
@@ -56,7 +65,17 @@ public class LevelManager : Singleton<LevelManager>
     }
 
     private void OnSpawnComplete(){
+      ChangeLevelState(LevelState.ALL_ENEMIES_SPAWN);
+    }
 
+    public void AddEnemyNumber()
+    {
+      _enemyNumber++;
+    }
+
+    public void MinusEnemyNumber()
+    {
+      _enemyNumber--;
     }
 
     

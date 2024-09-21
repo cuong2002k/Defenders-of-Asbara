@@ -9,14 +9,18 @@ public class WaveManager : MonoBehaviour
     /// Save all wave in 
     /// </summary>
     [SerializeField] private List<Wave> _waves = new List<Wave>();
-    private List<Node> _path;
+
     /// <summary>
     /// index of waves
     /// </summary>
     [SerializeField]private int _currentIndex = 0;
+    public int CurrentWave => _currentIndex + 1;
 
     public event Action WaveChange;
     public event Action WaveComplete;
+
+    public int WaveTotal => _waves.Count;
+    
 
     void Start()
     {
