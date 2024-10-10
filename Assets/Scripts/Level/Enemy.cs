@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamage
 {
-    private Node startNode;
     private List<Node> _agent = new List<Node>();
     private int _pathIndex = 0;
     private float _speed = 3f;
+    private int health = 3;
+    [SerializeField] private GameObject _hitEffect;
 
     private void Start()
     {
@@ -37,4 +38,16 @@ public class Enemy : MonoBehaviour
         this.transform.position = Vector3.MoveTowards(this.transform.position, positionMove, _speed * Time.deltaTime);
         
     }
+
+  public void TakeDamage(int damage)
+  {
+    health -= damage;
+    GameObject hitInstance = Instantiate(this._hitEffect, transform.position, Quaternion.identity);
+    Destroy(hitInstance, 2f);
+    if(health <= 0) Destroy(this.gameObject);
+    
+  }
+
+  
+
 }
