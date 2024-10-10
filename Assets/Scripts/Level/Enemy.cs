@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamage
 {
+    private Node startNode;
     private List<Node> _agent = new List<Node>();
     private int _pathIndex = 0;
     private float _speed = 3f;
-    private int health = 3;
-    [SerializeField] private GameObject _hitEffect;
+    private float health = 3f;
+    [SerializeField]private GameObject _hitEffect;
 
     private void Start()
     {
@@ -39,7 +40,7 @@ public class Enemy : MonoBehaviour, IDamage
         
     }
 
-  public void TakeDamage(int damage)
+ public void TakeDamage(int damage)
   {
     health -= damage;
     GameObject hitInstance = Instantiate(this._hitEffect, transform.position, Quaternion.identity);
@@ -47,7 +48,4 @@ public class Enemy : MonoBehaviour, IDamage
     if(health <= 0) Destroy(this.gameObject);
     
   }
-
-  
-
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ObserverExtentision;
 using UnityEngine;
 [RequireComponent(typeof(WaveManager))]
 public class LevelManager : Singleton<LevelManager>
@@ -13,10 +14,14 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private Transform _endPoint;
     public Vector3 StartPoint => _startPoint.transform.position;
     public Vector3 EndPoint => _endPoint.transform.position;
-    [SerializeField]private LevelState _levelState;
 
-    [SerializeField]private int _enemyNumber = 0;
+    public GameObject EnemyContainer;
 
+    [Header("Tower library")]
+    [SerializeField] private TowerLibrary _towerLibrary;
+    public TowerLibrary TowerLibrary => _towerLibrary;
+
+    #region Unity Logic
     protected override void Awake()
     {
         base.Awake();
@@ -25,11 +30,17 @@ public class LevelManager : Singleton<LevelManager>
         this._levelState = LevelState.BUILDING;
     }
 
-    private void Start()
-    {
-      
+    private void Start() {
+      // register listener event when click start wave
+      this.RegisterListener(EventID.OnStartWave, (param) => OnSpawnEnemy());
     }
+    #endregion
 
+    #region Level State
+    // Fiels
+    [SerializeField]private LevelState _levelState;
+    private int _enemyNumber = 0;
+    // end Fiels
     private void ChangeLevelState(LevelState newState)
     {
         if(this._levelState == newState) return;
@@ -56,16 +67,13 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    void Update()
-    {
-      if(Input.GetKeyDown(KeyCode.Y))
-      {
-        ChangeLevelState(LevelState.SPAWN_ENEMIES);
-      }
-    }
-
     private void OnSpawnComplete(){
       ChangeLevelState(LevelState.ALL_ENEMIES_SPAWN);
+    }
+
+    public void OnSpawnEnemy()
+    {
+      ChangeLevelState(LevelState.SPAWN_ENEMIES);
     }
 
     public void AddEnemyNumber()
@@ -76,7 +84,30 @@ public class LevelManager : Singleton<LevelManager>
     public void MinusEnemyNumber()
     {
       _enemyNumber--;
+
+      if(this._enemyNumber == 0 && this._levelState == LevelState.ALL_ENEMIES_SPAWN)
+      {
+        this.ChangeLevelState(LevelState.WIN);
+      }
     }
 
+    public void AddCoin()
+    {
+      
+    }
+
+    #endregion End LevelState
+
+    public void UpdateEnemyPath()
+    {
+      for(int i = 0; i < EnemyContainer.transform.childCount; i++)
+      {
+        Enemy enemy = EnemyContainer.transform.GetChild(i).GetComponent<Enemy>();
+        if(enemy != null)
+        {
+          enemy.SetPath(PathManager.Instance.Paths);
+        }
+      }
+    }
     
 }

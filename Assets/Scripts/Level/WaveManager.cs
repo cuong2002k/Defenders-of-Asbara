@@ -20,12 +20,6 @@ public class WaveManager : MonoBehaviour
     public event Action WaveComplete;
 
     public int WaveTotal => _waves.Count;
-    
-
-    void Start()
-    {
-
-    }
 
     public void StartWave()
     {

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlacementSystem : MonoBehaviour
+public class PlacementSystem : Singleton<PlacementSystem>
 {
     [Header("Component")]
     private InputManager _inputManager;
-    private LevelManager _levelManager;
     private Grid _grid;
     private PathFinding _pathFiding;
+
 
 
     [Header("Placement")]
@@ -26,21 +26,12 @@ public class PlacementSystem : MonoBehaviour
         _inputManager = this.transform.parent.GetComponentInChildren<InputManager>();
         _pathFiding = this.transform.parent.GetComponentInChildren<PathFinding>();
         _grid = this.transform.parent.GetComponentInChildren<Grid>();
-        _levelManager = LevelManager.Instance;
         _placementMaterial = Placement.GetComponent<Renderer>();
         _current = _placementMaterial.sharedMaterial;
     }
 
     private void Update()
     {
-
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            _isBuilding = true;
-            Placement.SetActive(true);
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _isBuilding = false;
@@ -63,11 +54,13 @@ public class PlacementSystem : MonoBehaviour
     {
         GameObject objectPlacement = Instantiate(Placement, position, Quaternion.identity);
         // set default material
-        objectPlacement.GetComponent<Renderer>().sharedMaterial = _current;
+        // objectPlacement.GetComponent<Renderer>().sharedMaterial = _current;
         // reset building
         this._isBuilding = false;
         // hide object place
         this.Placement.SetActive(false);
+        //Update Eneny Path
+        LevelManager.Instance.UpdateEnemyPath();
     }
 
     private Node GetCurrentNodeWithMouse()
@@ -94,6 +87,13 @@ public class PlacementSystem : MonoBehaviour
             _placementMaterial.sharedMaterial = _invalid;
             return false;
         }
+    }
+
+    public void SetTowerPlace(TowerBase tower)
+    {
+      _isBuilding = true;
+      Placement.SetActive(true);
+      this.Placement = Instantiate(tower, this.transform.position, Quaternion.identity).gameObject;
     }
 
 
