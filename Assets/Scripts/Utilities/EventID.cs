@@ -5,5 +5,7 @@ using UnityEngine;
 public enum EventID
 {
     none = 0,
-    OnStartWave
+    OnStartWave,
+    OnUpdatePath,
+    StartBuilding,
 }

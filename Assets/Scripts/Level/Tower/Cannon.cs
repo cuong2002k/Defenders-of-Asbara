@@ -11,10 +11,9 @@ public class Cannon : TowerBase
       Common.LogWarning("Bullet prefab not found in {0}", this.gameObject);
       return;
     }
-    CannonBullet bullet = Instantiate(this._bullet, _fireTranform.position, Quaternion.identity).GetComponent<CannonBullet>();
-    if(bullet != null)
-    {
-      bullet.SetTarget(this._targetAble.Target);
-    }
+
+    GameObject bulletInstance = this.SpawnBullet(this._bullet, this._fireTranform[0].position);
+    bulletInstance.GetComponent<BulletBase>().SetTarget(this._target[0]);
+    
   }
 }

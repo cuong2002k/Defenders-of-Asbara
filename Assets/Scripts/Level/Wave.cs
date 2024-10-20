@@ -81,8 +81,6 @@ public class Wave : TimerBehavior
         Enemy enemy = Instantiate(enemyConfig._enemyPrefabs).GetComponent<Enemy>();
         enemy.SetPath(PathManager.Instance.Paths);
         enemy.transform.position = startPosition;
-        enemy.transform.SetParent(LevelManager.Instance.EnemyContainer.transform);
-      
     }
 
 }

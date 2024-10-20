@@ -9,23 +9,18 @@ public class InputManager : MonoBehaviour
     [SerializeField] private float _maxDistanceRay = 100f;
     [SerializeField] private LayerMask _layerMask;
     private Vector3 lastPosition;
-    public Action OnClicked, OnRotation, OnExit;
+
+    private bool _rightMouseButton;
+    public bool RightMouseButton => _rightMouseButton;
+    private bool _leftMouseButton;
+    public bool LeftMouseBuuton => _leftMouseButton;
+    private bool _escButton;
+    public bool EscButton => _escButton;
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnClicked?.Invoke();
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            OnRotation?.Invoke();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnExit?.Invoke();
-        }
+      _escButton = Input.GetKeyDown(KeyCode.Escape);
+      _leftMouseButton = Input.GetKeyDown(KeyCode.Mouse0);
+      _rightMouseButton = Input.GetKeyDown(KeyCode.Mouse1);
     }
 
     public bool IsPointerOverUI()

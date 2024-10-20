@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: 
   Name: Cannon
+  GhostTower: {fileID: 7916366927801683285, guid: aa20681feea958043921f8405738dbd6, type: 3}
+  TowerPrefabs: {fileID: 5183007477113711571, guid: d16507cf62405a641a60979a4dcd9737, type: 3}
   Icon: {fileID: 0}
   TargetRange: 4
   AttackPerSecond: 1
   DamePersecond: 5
   RotationSpeed: 20
+  TargetNumber: 1
   TargetLayer:
     serializedVersion: 2
     m_Bits: 128

@@ -15,6 +15,9 @@ public class AutoDestroy : TimerBehavior
 
     private void DestroyObject()
     {
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
+
+
+
 }

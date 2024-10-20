@@ -7,9 +7,10 @@ public class TargetAble : MonoBehaviour
 
 
   [Header("Target value")]
-  protected Transform _target;
-  public Transform Target => this._target;
+  protected Transform[] _target = new Transform[20];
+  public Transform[] Target => this._target;
   protected float _targetRange;
+  protected int _targetNumber;
   protected LayerMask _layerTarget;
 
   private void Start() {
@@ -27,16 +28,13 @@ public class TargetAble : MonoBehaviour
     }
     this._targetRange = towerBase.TowerData.TargetRange;
     this._layerTarget = towerBase.TowerData.TargetLayer;
+    this._targetNumber = towerBase.TowerData.TargetNumber;
+    this._target = new Transform[this._targetNumber];
   }
 
   private void Update() 
   {
-    if (this._target == null)
-    {
-      FindTarget();
-      return;
-    }
-
+    FindTarget();
     TrackTarget();
   }
   
@@ -48,8 +46,10 @@ public class TargetAble : MonoBehaviour
     Collider[] collider = Physics.OverlapSphere(this.transform.position, this._targetRange, _layerTarget);
     if (collider.Length > 0)
     {
-      int indexRandom = Random.Range(0, collider.Length);
-      _target = collider[indexRandom].transform;
+      for(int i = 0; i < collider.Length && i < this._targetNumber; i++)
+      {
+        _target[i] = collider[i].transform;
+      }
     }
   }
 
@@ -58,16 +58,31 @@ public class TargetAble : MonoBehaviour
   /// </summary>
   /// <returns>if not target in range and out range is false, other wise</returns>
   private void TrackTarget()
-  {
-    if (this._target == null) return;
-    Vector3 current = this.transform.position;
-    Vector3 target = this._target.transform.position;
-    float distance = Vector3.Distance(current, target);
-
-    if (distance > this._targetRange)
+  {    
+    for(int i = 0; i < this._target.Length; i++)
     {
-      this._target = null;
+      if(this._target[i] == null) return;
+      Vector3 current = this.transform.position;
+      Vector3 target = this._target[i].position;
+      float distance = Vector3.Distance(current, target);
+      if (distance > this._targetRange)
+      {
+        this._target[i] = null;
+      }
     }
+  }
+
+  public Transform CheckTarget()
+  {
+    for (int i = 0; i < this._targetNumber; i++)
+    {
+      if (_target[i] != null)
+      {
+        return this._target[i];
+      }
+    }
+
+    return null;
   }
 
   protected virtual void OnDrawGizmosSelected()

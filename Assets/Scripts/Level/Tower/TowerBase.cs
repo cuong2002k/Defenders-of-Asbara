@@ -9,10 +9,10 @@ public abstract class TowerBase : MonoBehaviour
     public TowerData TowerData => this._towerData;
     
     [Header("Reference")]
-    [SerializeField] protected Transform _fireTranform;
+    [SerializeField] protected Transform[] _fireTranform;
     [SerializeField] protected GameObject _bullet;
 
-    protected Transform _target;
+    protected Transform[] _target;
     protected virtual void Start()
     {
       _targetAble = GetComponent<TargetAble>();
@@ -21,6 +21,10 @@ public abstract class TowerBase : MonoBehaviour
 
     protected virtual void Update()
     {
+      Transform target = this._targetAble.CheckTarget();
+      
+      if(target == null) return;
+      this. _target = this._targetAble.Target;
       CheckAttacking();
     }
 
@@ -28,10 +32,9 @@ public abstract class TowerBase : MonoBehaviour
     protected float _attackPerSecond;
     protected TargetAble _targetAble;
     private float _currentTimer = 0;
+
     private void CheckAttacking()
     {
-      _target = _targetAble.Target;
-      if(_target == null) return;
       if(this.CheckTimer())
       {
         this.Shoot();
@@ -50,6 +53,13 @@ public abstract class TowerBase : MonoBehaviour
     }
 
     protected abstract void Shoot();
+
+    protected virtual GameObject SpawnBullet(GameObject bulletObject, Vector3 position)
+    {
+      GameObject bullet = PoolManager.Instance.GetObjectPool(bulletObject);
+      bullet.transform.position = position;
+      return bullet;
+    }
 
     #endregion
 }

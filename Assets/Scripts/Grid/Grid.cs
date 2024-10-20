@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,47 +49,17 @@ public class Grid : MonoBehaviour
         }
     }
 
-    public void UpdateGridNode(Node node)
+    public void UpdateGridNode()
     {
-        node.walkAble = !(Physics.CheckSphere(node.GetWorldPosition(), _nodeRadius - 0.1f, _unWalkAble));
-        for (int i = -1; i <= 1; i++)
+      for(int x = 0; x < this._gridSizeX; x++)
+      {
+        for(int y = 0; y < this._gridSizeY; y++)
         {
-            for (int j = -1; j <= 1; j++)
-            {
-                if (i == 0 && j == 0) continue;
-                int x = node.gridX + i;
-                int y = node.gridY + j;
-                if (x >= 0 && x < _gridSizeX && y >= 0 && y < _gridSizeY)
-                {
-                    bool walkable = !(Physics.CheckSphere(_grid[x,y].GetWorldPosition(), _nodeRadius - 0.1f, _unWalkAble));
-                    _grid[x, y].walkAble = walkable;
-                }
-            }
+          bool walkable = !(Physics.CheckSphere(_grid[x,y].GetWorldPosition(), _nodeRadius - 0.1f, _unWalkAble));
+          _grid[x, y].walkAble = walkable;
         }
+      }
     }
-
-    // get all neibours of node
-    // public List<Node> GetNeighbours(Node node)
-    // {
-    //     List<Node> neighbours = new List<Node>();
-    //     for (int x = -1; x <= 1; x++)
-    //     {
-    //         for (int y = -1; y <= 1; y++)
-    //         {
-    //             if (x == 0 && y == 0)
-    //             {
-    //                 continue;
-    //             }
-    //             int checkX = node.gridX + x;
-    //             int checkY = node.gridY + y;
-    //             if (checkX >= 0 && checkX < _gridSizeX && checkY >= 0 && checkY < _gridSizeY)
-    //             {
-    //                 neighbours.Add(_grid[checkX, checkY]);
-    //             }
-    //         }
-    //     }
-    //     return neighbours;
-    // }
 
     public List<Node> GetNeighbours(Node node)
     {

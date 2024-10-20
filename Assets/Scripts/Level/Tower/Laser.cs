@@ -1,37 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(LineRenderer))]
 public class Laser : TowerBase
 {
   LineRenderer _lineRenderer;
 
   protected override void Start() {
     base.Start();
-    _lineRenderer.GetComponent<LineRenderer>();
-    _lineRenderer.positionCount = 2;
+    this._lineRenderer = this._bullet.GetComponent<LineRenderer>();
+    this._lineRenderer.positionCount = 2;
   }
 
   protected override void Shoot()
   {
-    
+    IDamage damage = this._target[0].GetComponent<IDamage>();
+
+    if(damage != null)
+    {
+      damage.TakeDamage(Mathf.RoundToInt(this._attackPerSecond));
+    }
     
   }
 
   protected override void Update()
   {
     base.Update();
-
-    if(_target != null)
+    if(this._target == null)
     {
-      this._lineRenderer.gameObject.SetActive(true);
-      Vector3 current = _fireTranform.position;
-      Vector3 target = _target.transform.position;
-      _lineRenderer.SetPosition(0, current);
-      _lineRenderer.SetPosition(1, target);
+      HideLaser();
+      return;
+    } 
+
+    LaserAttack();
+
+  }
+
+  private void LaserAttack()
+  {
+    ShowLaser();
+    for(int i = 0; i < this._towerData.TargetNumber; i++)
+    {
+      if(this._target[i] != null)
+      {
+        this._lineRenderer.SetPosition(0, this._fireTranform[i].position);
+        this._lineRenderer.SetPosition(1, this._target[i].position);
+      }
     }
-    else {
-      this._lineRenderer.gameObject.SetActive(false);
-    }
+  }
+
+  private void ShowLaser()
+  {
+    if(this._bullet.activeSelf == false)
+        this._bullet.SetActive(true);
+  }
+
+  private void HideLaser()
+  {
+    if(this._bullet.activeSelf == true)
+      this._bullet.SetActive(false);
   }
 }

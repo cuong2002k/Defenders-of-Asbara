@@ -18,6 +18,7 @@ MonoBehaviour:
   AttackPerSecond: 1
   DamePersecond: 2
   RotationSpeed: 20
+  TargetNumber: 1
   TargetLayer:
     serializedVersion: 2
     m_Bits: 128

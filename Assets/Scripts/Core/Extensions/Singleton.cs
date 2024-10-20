@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Singleton<T>
@@ -14,6 +13,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
             Common.Log("Create singleton of component");
             GameObject instance = new GameObject();
             instance.AddComponent<T>();
+            instance.gameObject.name = typeof(T).Name;
             _instance = instance.GetComponent<T>();
           }
           return _instance;

@@ -3,9 +3,13 @@ using UnityEngine;
 public class CannonBullet : BulletBase
 {
 
-  protected override void Start()
+  public override void SetTarget(Transform target)
   {
-    base.Start();
+    base.SetTarget(target);
+    if(this._rigidbody == null)
+    {
+      this.InitCompnent();
+    }
     _rigidbody.velocity = CaculatorVelocity() * this._speed;
   }
 
@@ -22,7 +26,7 @@ public class CannonBullet : BulletBase
     if (damage != null)
     {
       damage.TakeDamage(_damage);
-      Destroy(this.gameObject);
+      this.gameObject.SetActive(false);
     }
   }
 

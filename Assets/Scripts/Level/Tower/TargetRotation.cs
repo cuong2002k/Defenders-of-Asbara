@@ -26,7 +26,7 @@ public class TargetRotation : MonoBehaviour
     }
 
     private void Update() {
-      Transform target = this._targetAble.Target;
+      Transform target = _targetAble.CheckTarget();
       if(target != null)
       {
         LookTarget(target);
