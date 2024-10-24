@@ -229,6 +229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tow_Fire1
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 0cd23adbcd99c1c48b9ffdb204482330, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 0cd23adbcd99c1c48b9ffdb204482330, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -307,6 +311,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cd23adbcd99c1c48b9ffdb204482330, type: 3}
+--- !u!1 &6527072688525018947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100006, guid: 0cd23adbcd99c1c48b9ffdb204482330, type: 3}
+  m_PrefabInstance: {fileID: 6527072688525115877}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &884827393096998868
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6527072688525018947}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5456035, y: 0.52735126, z: 0.56242454}
+  m_Center: {x: -0.015556216, y: 0.23632437, z: -0.009079635}
 --- !u!4 &6527072688525515619 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400006, guid: 0cd23adbcd99c1c48b9ffdb204482330, type: 3}

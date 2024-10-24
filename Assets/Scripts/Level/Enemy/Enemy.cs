@@ -5,16 +5,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamage
 {
-  private List<Node> _agent = new List<Node>();
+  [SerializeField] private EnemyData _enemyData;
   private int _pathIndex = 0;
-  private float _speed = 3f;
-  private float health = 3f;
+  private int _speed;
+  private int _health;
+  private int _coinReceiver;
+  private List<Node> _agent = new List<Node>();
   [SerializeField] private GameObject _hitEffect;
 
   private void Start()
   {
     LevelManager.Instance.AddEnemyNumber();
     this.RegisterListener(EventID.OnUpdatePath, (param) => this.SetPath(param as List<Node>));
+
+    this._speed = this._enemyData.Speed;
+    this._health = this._enemyData.Health;
+    this._coinReceiver = this._enemyData.CoinReceiver;
+    
   }
 
   public void SetPath(List<Node> agent)
@@ -27,6 +34,7 @@ public class Enemy : MonoBehaviour, IDamage
     if (_pathIndex >= _agent.Count)
     {
       LevelManager.Instance.MinusEnemyNumber();
+      LevelManager.Instance.AddCoin(this._coinReceiver);
       Destroy(this.gameObject);
       return;
     }
@@ -43,10 +51,15 @@ public class Enemy : MonoBehaviour, IDamage
 
   public void TakeDamage(int damage)
   {
-    health -= damage;
+    _health -= damage;
     GameObject hitInstance = Instantiate(this._hitEffect, transform.position, Quaternion.identity);
     Destroy(hitInstance, 2f);
-    if(health <= 0) Destroy(this.gameObject);
+    if(_health <= 0) 
+    {
+      LevelManager.Instance.AddCoin(this._coinReceiver);
+      LevelManager.Instance.MinusEnemyNumber();
+      Destroy(this.gameObject);
+    }
   }
 
   private void OnDisable() {

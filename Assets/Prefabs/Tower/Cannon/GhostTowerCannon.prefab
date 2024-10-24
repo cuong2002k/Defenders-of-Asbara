@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 489347763845466612}
   - component: {fileID: 489347763838051856}
   - component: {fileID: 2260455833046770501}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Tow_Cannon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489347763845436884}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.51592493, y: 0.6767179, z: 0.58310926}
@@ -367,6 +367,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _valid: {fileID: 2100000, guid: 69d4dbc31b3757641a38918453b2facb, type: 2}
   _inValid: {fileID: 2100000, guid: 3b6a444ccad219444a3ece603be5318d, type: 2}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _radius: 0.4
 --- !u!114 &-1325399492269397812
 MonoBehaviour:
   m_ObjectHideFlags: 0

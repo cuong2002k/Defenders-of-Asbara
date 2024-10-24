@@ -17,7 +17,6 @@ public class PoolManager : Singleton<PoolManager>
     private void InitPool()
     {
       _poolContainer = new Dictionary<GameObject, List<GameObject>>();
-      Common.Log(this._poolList.Count);
       foreach(PoolAble poolAble in _poolList)
       {
 

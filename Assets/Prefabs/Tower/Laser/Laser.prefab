@@ -80,7 +80,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towerData: {fileID: 11400000, guid: 5afdafbc54567a24585156f0fce3d634, type: 2}
-  _fireTranform: {fileID: 1915291329616701337}
+  _fireTranform:
+  - {fileID: 1915291329616701337}
   _bullet: {fileID: 1915291330999414595}
 --- !u!114 &1915291330407628128
 MonoBehaviour:

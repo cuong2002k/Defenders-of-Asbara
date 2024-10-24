@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Roket
   m_EditorClassIdentifier: 
   Name: Roket
+  GhostTower: {fileID: 4673843446214694284, guid: d01e1f415f7849a438b54fe07738bef5, type: 3}
+  TowerPrefabs: {fileID: 5304114280654701674, guid: c7f4698ab1ff13648b2934817868e925, type: 3}
   Icon: {fileID: 0}
   TargetRange: 4
   AttackPerSecond: 1

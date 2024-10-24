@@ -25,7 +25,7 @@ public class Laser : TowerBase
   protected override void Update()
   {
     base.Update();
-    if(this._target == null)
+    if(this._targetAble.CheckTarget() == null)
     {
       HideLaser();
       return;

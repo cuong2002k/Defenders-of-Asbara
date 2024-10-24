@@ -19,6 +19,9 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private TowerLibrary _towerLibrary;
     public TowerLibrary TowerLibrary => _towerLibrary;
 
+    [SerializeField] private int _coinLevel;
+    public int CoinLevel => this._coinLevel;
+
     #region Unity Logic
     protected override void Awake()
     {
@@ -32,12 +35,16 @@ public class LevelManager : Singleton<LevelManager>
       // register listener event when click start wave
       this.RegisterListener(EventID.OnStartWave, (param) => OnSpawnEnemy());
     }
+
+    private void OnDisable() {
+      this.RemoveListener(EventID.OnStartWave);
+    }
     #endregion
 
     #region Level State
     // Fiels
     [SerializeField]private LevelState _levelState;
-    private int _enemyNumber = 0;
+    [SerializeField]private int _enemyNumber = 0;
     // end Fiels
     private void ChangeLevelState(LevelState newState)
     {
@@ -89,9 +96,9 @@ public class LevelManager : Singleton<LevelManager>
       }
     }
 
-    public void AddCoin()
+    public void AddCoin(int coinReceiver)
     {
-      
+      this._coinLevel += coinReceiver;
     }
 
     #endregion End LevelState

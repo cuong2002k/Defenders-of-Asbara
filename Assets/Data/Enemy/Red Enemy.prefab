@@ -127,4 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60b248da57e1824893ce4b34f630438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyData: {fileID: 11400000, guid: 10147f113f7014242a6242d467bff1db, type: 2}
   _hitEffect: {fileID: 7744158746769088622, guid: cbb31b10b29b26043bbfde87a737891f, type: 3}

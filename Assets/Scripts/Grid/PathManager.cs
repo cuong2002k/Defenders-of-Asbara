@@ -8,8 +8,9 @@ using UnityEngine;
 public class PathManager : Singleton<PathManager>
 {
     
-    private List<Node> _path = new List<Node>();
-    public List<Node> Paths => _path;
+    private List<Node> _paths = new List<Node>();
+    private List<Node> _pathView = new List<Node>();
+    public List<Node> Paths => _paths;
     private LineRenderer _lineRenderer;
     private Grid _grid;
     private PathFinding _pathFiding;
@@ -19,40 +20,46 @@ public class PathManager : Singleton<PathManager>
     protected override void Awake()
     {
         base.Awake();
-        _lineRenderer = GetComponent<LineRenderer>();
-        _grid = GetComponent<Grid>();
-        _pathFiding = GetComponent<PathFinding>();
+        InitComponent();
+    }
+
+
+    private void InitComponent()
+    {
+      _lineRenderer = GetComponent<LineRenderer>();
+      _grid = GetComponent<Grid>();
+      _pathFiding = GetComponent<PathFinding>();
     }
 
     private void Start()
     {
       this._startPos = LevelManager.Instance.StartPoint;
       this._endPos = LevelManager.Instance.EndPoint;
-      UpdatePath();
+      UpdatePathPrimary();
 
     }
 
-    public void SetPath(List<Node> path)
-    {
-        this._path = path;
-        ShowPath();
-    }
-
-    public void UpdatePath()
+    public void UpdatePathPrimary()
     {
         _grid.UpdateGridNode();
-        _pathFiding.StartFindingPath(this._startPos, this._endPos, ref _path);
-        ShowPath();
+        this._paths = this._pathView;
+        ShowPath(_paths);
     }
 
-    private void ShowPath()
+    public void UpdatePathView()
     {
-        _lineRenderer.positionCount = _path.Count;
-        for (int i = 0; i < _path.Count; i++)
+        _grid.UpdateGridNode();
+        _pathFiding.StartFindingPath(this._startPos, this._endPos, ref this._pathView);
+        ShowPath(_pathView);
+    }
+
+    private void ShowPath(List<Node> pathView)
+    {
+        _lineRenderer.positionCount = pathView.Count;
+        for (int i = 0; i < pathView.Count; i++)
         {
-            this._lineRenderer.SetPosition(i, this._path[i].GetWorldPosition());
+            this._lineRenderer.SetPosition(i, pathView[i].GetWorldPosition());
         }
-        _lineRenderer.numCapVertices = 5;
-        _lineRenderer.numCornerVertices = 5;
     }
 }
+

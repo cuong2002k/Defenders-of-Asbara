@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   Name: Fire
+  GhostTower: {fileID: 3591571989186745039, guid: 1e8754816971b164fa66a30467a9b136, type: 3}
+  TowerPrefabs: {fileID: 6527072689219270046, guid: b59a9246994ca514abb1b10882202206, type: 3}
   Icon: {fileID: 0}
   TargetRange: 3
   AttackPerSecond: 2

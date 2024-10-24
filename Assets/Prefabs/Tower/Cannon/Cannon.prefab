@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tow_Cannon_Level_1
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c750f9054cec93740b96cb359da73074, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c750f9054cec93740b96cb359da73074, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -353,8 +357,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2671657, y: 1.1506498, z: 0.56376076}
-  m_Center: {x: 0.0047137737, y: 0.5712396, z: 0.009301186}
+  m_Size: {x: 1.2671657, y: 1.1034964, z: 0.56376076}
+  m_Center: {x: 0.0047137584, y: -0.015193019, z: 0.009301192}
 --- !u!4 &5183007476317776802 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: c750f9054cec93740b96cb359da73074, type: 3}
