@@ -14,8 +14,14 @@ public class TowerSpawnButton : MonoBehaviour
 
     private void Start() {
       this.Button.onClick.AddListener(OnClick);
+      this.RegisterListener(EventID.OnChangeCoin, (param) => this.CanBuilding((int)param));
+      this.CanBuilding(LevelManager.Instance.CoinLevel);
     }
 
+    /// <summary>
+    /// init towerbase to building button
+    /// </summary>
+    /// <param name="tower">Tower for button</param>
     public void InitSpawnButton(TowerBase tower)
     {
       if(tower == null) return;
@@ -25,8 +31,33 @@ public class TowerSpawnButton : MonoBehaviour
       
     }
 
+    /// <summary>
+    /// Event when click button UI
+    /// </summary>
     private void OnClick()
     {
       this.PostEvent(EventID.StartBuilding, this._tower);
+    }
+
+    /// <summary>
+    /// Check coin can building
+    /// </summary>
+    /// <param name="CurrentCoin"></param>
+    private void CanBuilding(int CurrentCoin)
+    {
+      if(this._tower.TowerData.TowerCost <= CurrentCoin)
+      {
+        this.Button.enabled = true;
+      }
+      else{
+        this.Button.enabled = false;
+      }
+    }
+
+    /// <summary>
+    /// remove event when disable
+    /// </summary>
+    private void OnDisable() {
+      this.RemoveListener(EventID.OnChangeCoin, (param) => this.CanBuilding((int)param));
     }
 }

@@ -109,9 +109,10 @@ namespace ObserverExtentision
     {
       EventDispatcher.Instance.PostEvent(eventID, param);
     }
+    
 
-    public static void RemoveListener(this MonoBehaviour listener, EventID eventID){
-      EventDispatcher.Instance.RegisterListener(eventID, null);
+    public static void RemoveListener(this MonoBehaviour listener, EventID eventID, Action<object> callback){
+      EventDispatcher.Instance.RemoveListener(eventID, callback);
     }
 
 

@@ -8,4 +8,5 @@ public enum EventID
     OnStartWave,
     OnUpdatePath,
     StartBuilding,
+    OnChangeCoin,
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class CoinUI : MonoBehaviour
 {
     TextMeshProUGUI _coinTextUI;
-    private readonly string _Title = "COIN ";
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +15,6 @@ public class CoinUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this._coinTextUI.text = this._Title + LevelManager.Instance.CoinLevel;
+        this._coinTextUI.text = LevelManager.Instance.CoinLevel +"";
     }
 }

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041059b988b39cf4ab11f1306842b05f, type: 3}
+  m_Name: BatConfig
+  m_EditorClassIdentifier: 
+  EnemyName: Bat
+  EnemyDescription: Bat
+  _enemyPrefabs: {fileID: 1249445014899495975, guid: bc5fe8d728211ca4385fd0d518c3f2ce, type: 3}
