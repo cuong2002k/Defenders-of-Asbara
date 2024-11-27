@@ -5,7 +5,7 @@ using UnityEngine;
 public class AutoDestroy : TimerBehavior
 {
     private RepeatTimer _repeatTimer;
-    private float _destroyTimer = 2f;
+    [SerializeField] private float _destroyTimer = 2f;
     // Start is called before the first frame update
     void Start()
     {

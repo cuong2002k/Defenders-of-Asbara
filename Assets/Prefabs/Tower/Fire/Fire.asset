@@ -18,10 +18,11 @@ MonoBehaviour:
   TowerCost: 11
   Icon: {fileID: 0}
   TargetRange: 3
-  AttackPerSecond: 2
+  AttackPerSecond: 1
   DamePersecond: 3
   RotationSpeed: 30
   TargetNumber: 4
   TargetLayer:
     serializedVersion: 2
     m_Bits: 128
+  color: {r: 0.5322179, g: 0.9811321, b: 0.97344404, a: 0.09803922}

@@ -3,60 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Laser : TowerBase
 {
-  LineRenderer _lineRenderer;
+    LineRenderer _lineRenderer;
 
-  protected override void Start() {
-    base.Start();
-    this._lineRenderer = this._bullet.GetComponent<LineRenderer>();
-    this._lineRenderer.positionCount = 2;
-  }
+    [SerializeField] private int _numberAttack = 3;
 
-  protected override void Shoot()
-  {
-    IDamage damage = this._target[0].GetComponent<IDamage>();
-
-    if(damage != null)
+    protected override void Start()
     {
-      damage.TakeDamage(Mathf.RoundToInt(this._attackPerSecond));
+        base.Start();
+        this._lineRenderer = this._bullet.GetComponent<LineRenderer>();
+        this._lineRenderer.positionCount = 2;
     }
-    
-  }
 
-  protected override void Update()
-  {
-    base.Update();
-    if(this._targetAble.CheckTarget() == null)
+    protected override void Shoot()
     {
-      HideLaser();
-      return;
-    } 
-
-    LaserAttack();
-
-  }
-
-  private void LaserAttack()
-  {
-    ShowLaser();
-    for(int i = 0; i < this._towerData.TargetNumber; i++)
-    {
-      if(this._target[i] != null)
-      {
-        this._lineRenderer.SetPosition(0, this._fireTranform[i].position);
-        this._lineRenderer.SetPosition(1, this._target[i].position);
-      }
+        this._animationControl.PlayAttackAnimation();
+        List<Transform> targets = this._targetter.GetAllTarget();
+        LaserBullet laserBullet = PoolManager.Instance.GetObjectPool(_bullet).GetComponent<LaserBullet>();
+        laserBullet.SetTarget(targets);
+        laserBullet.Initialize(this._attackTranform[0], this._numberAttack);
     }
-  }
-
-  private void ShowLaser()
-  {
-    if(this._bullet.activeSelf == false)
-        this._bullet.SetActive(true);
-  }
-
-  private void HideLaser()
-  {
-    if(this._bullet.activeSelf == true)
-      this._bullet.SetActive(false);
-  }
 }

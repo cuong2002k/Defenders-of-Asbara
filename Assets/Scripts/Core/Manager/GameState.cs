@@ -8,5 +8,6 @@ public enum GameState
     WIN,
     OVER,
     PAUSE,
-    LOADING
+    LOADING,
+    BULDING
 }

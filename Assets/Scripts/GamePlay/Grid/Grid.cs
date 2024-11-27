@@ -51,14 +51,27 @@ public class Grid : MonoBehaviour
 
     public void UpdateGridNode()
     {
-      for(int x = 0; x < this._gridSizeX; x++)
-      {
-        for(int y = 0; y < this._gridSizeY; y++)
+        for (int x = 0; x < this._gridSizeX; x++)
         {
-          bool walkable = !(Physics.CheckSphere(_grid[x,y].GetWorldPosition(), _nodeRadius - 0.1f, _unWalkAble));
-          _grid[x, y].walkAble = walkable;
+            for (int y = 0; y < this._gridSizeY; y++)
+            {
+                bool walkable = !(Physics.CheckSphere(_grid[x, y].GetWorldPosition(), _nodeRadius - 0.1f, _unWalkAble));
+                _grid[x, y].walkAble = walkable;
+            }
         }
-      }
+    }
+
+    public void UpdateGridNode(Node current, Node old)
+    {
+        bool walkableCurrent = Physics.CheckSphere(current.GetWorldPosition(), _nodeRadius - 0.1f, _unWalkAble);
+        current.walkAble = walkableCurrent;
+
+        bool walkAbleOld = Physics.CheckSphere(old.GetWorldPosition(), _nodeRadius - 0.1f, _unWalkAble);
+        old.walkAble = walkAbleOld;
+
+        // Common.Log(walkableCurrent);
+        // Common.Log(walkAbleOld);
+
     }
 
     public List<Node> GetNeighbours(Node node)

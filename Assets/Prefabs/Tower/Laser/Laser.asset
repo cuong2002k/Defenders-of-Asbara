@@ -15,12 +15,14 @@ MonoBehaviour:
   Name: Laser
   GhostTower: {fileID: 3582952940676328337, guid: 5287cfac492fe64498761842bdc683b2, type: 3}
   TowerPrefabs: {fileID: 1915291330407628131, guid: f3a4042afdfa62c4bafc2e4b63fd0bbf, type: 3}
+  TowerCost: 0
   Icon: {fileID: 0}
-  TargetRange: 4
+  TargetRange: 2
   AttackPerSecond: 1
-  DamePersecond: 2
+  DamePersecond: 5
   RotationSpeed: 20
   TargetNumber: 1
   TargetLayer:
     serializedVersion: 2
     m_Bits: 128
+  color: {r: 0, g: 0.990566, b: 0.94573396, a: 0.03529412}

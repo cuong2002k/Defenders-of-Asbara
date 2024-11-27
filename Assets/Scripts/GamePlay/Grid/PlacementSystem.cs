@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DefenderOfAsbara.UI;
 using ObserverExtentision;
 using UnityEngine;
 
@@ -16,29 +17,39 @@ public class PlacementSystem : Singleton<PlacementSystem>
     public TowerBase _placement;
     private GhostTower _ghostTower;
     private bool _isBuilding;
+    public bool IsBuilding => _isBuilding;
     private bool _canPlacement;
     public bool CanPlacement => _canPlacement;
 
-    private void Start()
+    RadiusVisualized _radiusVisualized;
+
+    protected override void Awake()
     {
-      InitComponent();
-      InitEvent();
+        base.Awake();
+        InitComponent();
+    }
+
+    protected void Start()
+    {
+        InitEvent();
+        this._radiusVisualized = UIManager.GetView<RadiusVisualized>() as RadiusVisualized;
     }
 
     private void InitComponent()
     {
-       _inputManager = this.transform.parent.GetComponentInChildren<InputManager>();
-       _pathFiding = this.transform.parent.GetComponentInChildren<PathFinding>();
-       _grid = this.transform.parent.GetComponentInChildren<Grid>();
+        _inputManager = this.transform.parent.GetComponentInChildren<InputManager>();
+        _pathFiding = this.transform.parent.GetComponentInChildren<PathFinding>();
+        _grid = this.transform.parent.GetComponentInChildren<Grid>();
     }
 
     private void InitEvent()
     {
-      this.RegisterListener(EventID.StartBuilding, (param) => this.SetTowerPlace(param as TowerBase));
+        this.RegisterListener(EventID.StartBuilding, (param) => this.SetTowerPlace(param as TowerBase));
     }
 
-    private void OnDisable() {
-      this.RemoveListener(EventID.StartBuilding, (param) => this.SetTowerPlace(param as TowerBase));
+    private void OnDisable()
+    {
+        this.RemoveListener(EventID.StartBuilding, (param) => this.SetTowerPlace(param as TowerBase));
     }
 
     private void Update()
@@ -49,36 +60,35 @@ public class PlacementSystem : Singleton<PlacementSystem>
 
     private void BuildingProcess()
     {
-      if (!_isBuilding) return;
-      Node currentNode = GetCurrentNodeWithMouse();
-      this._ghostTower.transform.position = currentNode.GetWorldPosition();
-      UpdatePathWhenView();
+        if (!_isBuilding) return;
+        Node currentNode = GetCurrentNodeWithMouse();
+        this._ghostTower.transform.position = currentNode.GetWorldPosition();
+        UpdatePathWhenView();
+        _canPlacement = _pathFiding.CanMove;
+        if (_canPlacement && !_inputManager.IsPointerOverUI() && _inputManager.LeftMouseBuuton && this._ghostTower.CanPlace)
+        {
+            FinishPlacement(currentNode.GetWorldPosition());
+        }
 
-      _canPlacement = _pathFiding.CanMove;
-      if (_canPlacement && !_inputManager.IsPointerOverUI() && _inputManager.LeftMouseBuuton && this._ghostTower.CanPlace)
-      {
-        PlaceObject(currentNode.GetWorldPosition());
-      }
-
-      if (_inputManager.RightMouseButton)
-      {
-        RotationPlacement();
-      }
+        if (_inputManager.RightMouseButton)
+        {
+            RotationPlacement();
+        }
     }
-    
+
     /// <summary>
     /// Place object in grid
     /// </summary>
     /// <param name="position">Location will be spawned</param>
-    private void PlaceObject(Vector3 position)
+    private void FinishPlacement(Vector3 position)
     {
-        GameObject objectPlacement = PoolManager.Instance.GetObjectPool(this._placement.TowerData.TowerPrefabs.gameObject);
+        GameObject objectPlacement = PoolManager.Instance.GetObjectPool(this._placement.TowerConfig.TowerPrefabs.gameObject);
         // set default material
         objectPlacement.transform.position = position;
         objectPlacement.transform.rotation = _ghostTower.transform.rotation;
         // reset building
         this._isBuilding = false;
-        LevelManager.Instance.MinusCoin(this._placement.TowerData.TowerCost);
+        LevelManager.Instance.MinusCoin(this._placement.GetCurrentCostLevel);
         // hide object place
         this._ghostTower.gameObject.SetActive(false);
         //Update Eneny Path
@@ -93,7 +103,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
     /// </summary>
     private void RotationPlacement()
     {
-      this._ghostTower.transform.Rotate(0f, 90f, 0f);
+        this._ghostTower.transform.Rotate(0f, 90f, 0f);
     }
 
     /// <summary>
@@ -112,7 +122,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
     /// </summary>
     private void UpdatePathWhenPlacement()
     {
-      PathManager.Instance.UpdatePathPrimary();
+        PathManager.Instance.UpdatePathPrimary();
     }
 
     /// <summary>
@@ -120,29 +130,39 @@ public class PlacementSystem : Singleton<PlacementSystem>
     /// </summary>
     private void UpdatePathWhenView()
     {
-      PathManager.Instance.UpdatePathView();
+        PathManager.Instance.UpdatePathView();
+    }
+
+    private void UpdatePathWhenView(Node current, Node old)
+    {
+        PathManager.Instance.UpdatePathView(current, old);
     }
 
     /// <summary>
     /// Set tower data when click button in UI
     /// </summary>
     /// <param name="tower"></param>
-  public void SetTowerPlace(TowerBase tower)
+    public void SetTowerPlace(TowerBase tower)
     {
-      ResetPlacementObject();
-      _isBuilding = true;
-      this._placement = tower;
-      GhostTower ghostInstance = PoolManager.Instance.GetObjectPool(tower.TowerData.GhostTower.gameObject).GetComponent<GhostTower>();
-      if(ghostInstance != null)
-      {
-        this._ghostTower = ghostInstance;
-        _ghostTower.gameObject.SetActive(true);
-      }
-      else
-      { 
-        Common.LogWarning("Ghost Tower component not found in ", tower);
-      }
-      
+        ResetPlacementObject();
+        _isBuilding = true;
+        this._placement = tower;
+        GhostTower ghostInstance = PoolManager.Instance.GetObjectPool(tower.TowerConfig.GhostTower.gameObject).GetComponent<GhostTower>();
+        if (ghostInstance != null)
+        {
+            this._ghostTower = ghostInstance;
+            _ghostTower.gameObject.SetActive(true);
+
+            if (_radiusVisualized != null)
+            {
+                this._radiusVisualized.SetupRadiusVisual(ghostInstance.transform, tower.CurrentTargetRange, tower.GetTargetRangeColor);
+            }
+        }
+        else
+        {
+            Common.LogWarning("Ghost Tower component not found in ", tower);
+        }
+
     }
 
     /// <summary>
@@ -150,11 +170,14 @@ public class PlacementSystem : Singleton<PlacementSystem>
     /// </summary>
     private void ResetPlacementObject()
     {
-      if(this._ghostTower != null){
-        this._ghostTower.gameObject.SetActive(false);
-        this._ghostTower = null;
-      }
-      if(this._placement != null) this._placement = null;
+        if (this._ghostTower != null)
+        {
+            this._radiusVisualized.Hide();
+            this._ghostTower.gameObject.SetActive(false);
+            this._ghostTower = null;
+
+        }
+        if (this._placement != null) this._placement = null;
     }
 
     /// <summary>
@@ -162,11 +185,18 @@ public class PlacementSystem : Singleton<PlacementSystem>
     /// </summary>
     private void CloseBuilding()
     {
-      if (_inputManager.EscButton)
-      {
-        _isBuilding = false;
-        _ghostTower.gameObject.SetActive(false);
-        UpdatePathWhenView();
-      }
+        if (_inputManager.EscButton)
+        {
+            _isBuilding = false;
+            _ghostTower.gameObject.SetActive(false);
+            UpdatePathWhenView();
+        }
+    }
+
+    public Vector3 GetMouseToGridPosition()
+    {
+        Vector3 gridPos = this._inputManager.GetSelectedMapPosition();
+        Node currentNode = _grid.NodeFromWorldPoint(gridPos);
+        return currentNode.GetWorldPosition();
     }
 }

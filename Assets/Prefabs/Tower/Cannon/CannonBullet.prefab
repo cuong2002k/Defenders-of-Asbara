@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5404410770595941382}
   - component: {fileID: -4111645990664305515}
   - component: {fileID: -6386004407522824350}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CannonBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f81032d39fe60f4e90b0903377f0417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _targets: []
   _speed: 10
+  _rigidbody: {fileID: 0}
 --- !u!96 &5404410770595941382
 TrailRenderer:
   serializedVersion: 2
@@ -173,7 +175,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.3
+  m_Time: 0.1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -190,8 +192,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.7280654
-        value: 0.010635376
+        time: 0.41979206
+        value: 0.028335571
         inSlope: -0.26952133
         outSlope: -0.26952133
         tangentMode: 0
@@ -204,8 +206,8 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 0.6821606, b: 0, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 0.6320754, g: 0.032796368, b: 0.032796368, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -219,9 +221,9 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 13878
-      atime1: 65535
-      atime2: 0
+      atime0: 6746
+      atime1: 59174
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -251,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08103edd992e0714f96ba56a14b7aa2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _destroyTimer: 2
 --- !u!114 &-6386004407522824350
 MonoBehaviour:
   m_ObjectHideFlags: 0

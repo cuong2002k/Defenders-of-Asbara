@@ -369,7 +369,7 @@ MonoBehaviour:
   _inValid: {fileID: 2100000, guid: 3b6a444ccad219444a3ece603be5318d, type: 2}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   _radius: 0.4
 --- !u!114 &-1325399492269397812
 MonoBehaviour:

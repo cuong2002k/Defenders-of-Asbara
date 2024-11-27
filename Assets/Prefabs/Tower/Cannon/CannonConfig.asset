@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fc6613ea5e4194b91a0e67682b774d, type: 3}
+  m_Name: CannonConfig
+  m_EditorClassIdentifier: 
+  Name: Cannon
+  GhostTower: {fileID: 7916366927801683285, guid: aa20681feea958043921f8405738dbd6, type: 3}
+  TowerPrefabs: {fileID: 3316171816723752754, guid: 48fa34dd40c1eaf459c97f07042e36d1, type: 3}
+  Icon: {fileID: 0}
+  color: {r: 0.35292807, g: 0.9716981, b: 0.89607066, a: 0.03137255}

@@ -5,48 +5,52 @@ using UnityEngine;
 
 public class GhostTower : MonoBehaviour
 {
-  // material showing when valid
-  [SerializeField] private Material _valid;
-  // material showing when invalid
-  [SerializeField] private Material _inValid;
-  // check layer not allow building
-  [SerializeField] private LayerMask _layerMask;
-  // radius check
-  [SerializeField] private float _radius;
-  // all mesh use in model
-  private MeshRenderer[] meshRenderer;
-  private bool _canPlace = false;
-  public bool CanPlace => this._canPlace;
-  private void Start() {
-    meshRenderer = GetComponentsInChildren<MeshRenderer>();
-  }
-
-  private void Update() {
-    _canPlace = !CheckCollision();
-    if(PlacementSystem.Instance.CanPlacement && !CheckCollision())
+    // material showing when valid
+    [SerializeField] private Material _valid;
+    // material showing when invalid
+    [SerializeField] private Material _inValid;
+    // check layer not allow building
+    [SerializeField] private LayerMask _layerMask;
+    // radius check
+    [SerializeField] private float _radius;
+    // all mesh use in model
+    private MeshRenderer[] meshRenderer;
+    private bool _canPlace = false;
+    public bool CanPlace => this._canPlace;
+    private void Awake()
     {
-      SetMaterial(_valid);
+        meshRenderer = GetComponentsInChildren<MeshRenderer>();
     }
-    else{
-      SetMaterial(_inValid);
+
+    private void Update()
+    {
+        _canPlace = !CheckCollision();
+        if (PlacementSystem.Instance.CanPlacement && !CheckCollision())
+        {
+            SetMaterial(_valid);
+        }
+        else
+        {
+            SetMaterial(_inValid);
+        }
     }
-  }
 
-  private void SetMaterial(Material material)
-  {
-    for(int i = 0; i < meshRenderer.Length; i++)
-      {
-        meshRenderer[i].material = material;
-      }
-  }
+    private void SetMaterial(Material material)
+    {
+        for (int i = 0; i < meshRenderer.Length; i++)
+        {
+            meshRenderer[i].material = material;
+        }
+    }
 
-  private bool CheckCollision()
-  {
-    Collider[] colliders = Physics.OverlapSphere(this.transform.position, _radius, _layerMask);
-    return colliders.Length > 0;
-  }
+    private bool CheckCollision()
+    {
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, _radius, _layerMask);
+        return colliders.Length > 0;
+    }
 
-  private void OnDrawGizmosSelected() {
-    Gizmos.DrawSphere(this.transform.position, _radius);
-  }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawSphere(this.transform.position, _radius);
+    }
 }

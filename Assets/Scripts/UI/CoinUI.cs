@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CoinUI : MonoBehaviour
 {
+    
     TextMeshProUGUI _coinTextUI;
     // Start is called before the first frame update
     void Start()

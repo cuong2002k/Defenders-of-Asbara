@@ -13,7 +13,4 @@ MonoBehaviour:
   m_Name: TowerLibraryLevel
   m_EditorClassIdentifier: 
   _towers:
-  - {fileID: 5183007477113711571, guid: d16507cf62405a641a60979a4dcd9737, type: 3}
-  - {fileID: 6527072689219270046, guid: b59a9246994ca514abb1b10882202206, type: 3}
-  - {fileID: 1915291330407628131, guid: f3a4042afdfa62c4bafc2e4b63fd0bbf, type: 3}
-  - {fileID: 5304114280654701674, guid: c7f4698ab1ff13648b2934817868e925, type: 3}
+  - {fileID: 3316171816723752754, guid: 48fa34dd40c1eaf459c97f07042e36d1, type: 3}

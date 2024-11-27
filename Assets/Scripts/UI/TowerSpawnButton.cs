@@ -12,10 +12,11 @@ public class TowerSpawnButton : MonoBehaviour
     public TextMeshProUGUI Text;
     public Button Button;
 
-    private void Start() {
-      this.Button.onClick.AddListener(OnClick);
-      this.RegisterListener(EventID.OnChangeCoin, (param) => this.CanBuilding((int)param));
-      this.CanBuilding(LevelManager.Instance.CoinLevel);
+    private void Start()
+    {
+        this.Button.onClick.AddListener(OnClick);
+        this.RegisterListener(EventID.OnChangeCoin, (param) => this.CanBuilding((int)param));
+        this.CanBuilding(LevelManager.Instance.CoinLevel);
     }
 
     /// <summary>
@@ -24,11 +25,11 @@ public class TowerSpawnButton : MonoBehaviour
     /// <param name="tower">Tower for button</param>
     public void InitSpawnButton(TowerBase tower)
     {
-      if(tower == null) return;
+        if (tower == null) return;
 
-      this._tower = tower;
-      this.Text.text = this._tower.name;
-      
+        this._tower = tower;
+        this.Text.text = this._tower.TowerConfig.Name;
+
     }
 
     /// <summary>
@@ -36,7 +37,7 @@ public class TowerSpawnButton : MonoBehaviour
     /// </summary>
     private void OnClick()
     {
-      this.PostEvent(EventID.StartBuilding, this._tower);
+        this.PostEvent(EventID.StartBuilding, this._tower);
     }
 
     /// <summary>
@@ -45,19 +46,22 @@ public class TowerSpawnButton : MonoBehaviour
     /// <param name="CurrentCoin"></param>
     private void CanBuilding(int CurrentCoin)
     {
-      if(this._tower.TowerData.TowerCost <= CurrentCoin)
-      {
-        this.Button.enabled = true;
-      }
-      else{
-        this.Button.enabled = false;
-      }
+
+        if (this._tower.GetCurrentCostLevel <= CurrentCoin)
+        {
+            this.Button.enabled = true;
+        }
+        else
+        {
+            this.Button.enabled = false;
+        }
     }
 
     /// <summary>
     /// remove event when disable
     /// </summary>
-    private void OnDisable() {
-      this.RemoveListener(EventID.OnChangeCoin, (param) => this.CanBuilding((int)param));
+    private void OnDisable()
+    {
+        this.RemoveListener(EventID.OnChangeCoin, (param) => this.CanBuilding((int)param));
     }
 }

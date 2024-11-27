@@ -7,10 +7,11 @@ using UnityEngine;
 [RequireComponent(typeof(PathFinding))]
 public class PathManager : Singleton<PathManager>
 {
-    
-    private List<Node> _paths = new List<Node>();
+    [Header("path use for enemy moving")]
+    private List<Node> _pathsUse = new List<Node>();
+    [Header("path use showing when placement")]
     private List<Node> _pathView = new List<Node>();
-    public List<Node> Paths => _paths;
+    public List<Node> Paths => _pathsUse;
     private LineRenderer _lineRenderer;
     private Grid _grid;
     private PathFinding _pathFiding;
@@ -26,29 +27,36 @@ public class PathManager : Singleton<PathManager>
 
     private void InitComponent()
     {
-      _lineRenderer = GetComponent<LineRenderer>();
-      _grid = GetComponent<Grid>();
-      _pathFiding = GetComponent<PathFinding>();
+        _lineRenderer = GetComponent<LineRenderer>();
+        _grid = GetComponent<Grid>();
+        _pathFiding = GetComponent<PathFinding>();
     }
 
     private void Start()
     {
-      this._startPos = LevelManager.Instance.StartPoint;
-      this._endPos = LevelManager.Instance.EndPoint;
-      UpdatePathView();
-      UpdatePathPrimary();
+        this._startPos = LevelManager.Instance.StartPoint;
+        this._endPos = LevelManager.Instance.EndPoint;
+        UpdatePathView();
+        UpdatePathPrimary();
     }
 
     public void UpdatePathPrimary()
     {
         _grid.UpdateGridNode();
-        this._paths = this._pathView;
-        ShowPath(_paths);
+        this._pathsUse = this._pathView;
+        ShowPath(_pathsUse);
     }
 
     public void UpdatePathView()
     {
         _grid.UpdateGridNode();
+        _pathFiding.StartFindingPath(this._startPos, this._endPos, ref this._pathView);
+        ShowPath(_pathView);
+    }
+
+    public void UpdatePathView(Node current, Node old)
+    {
+        _grid.UpdateGridNode(current, old);
         _pathFiding.StartFindingPath(this._startPos, this._endPos, ref this._pathView);
         ShowPath(_pathView);
     }

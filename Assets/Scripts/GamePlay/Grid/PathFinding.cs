@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
+[RequireComponent(typeof(Grid))]
 public class PathFinding : MonoBehaviour
 {
     private Grid _grid;
