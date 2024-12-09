@@ -50,21 +50,21 @@ public class Enemy : MonoBehaviour, IDamage
 
     void Update()
     {
-        if (_pathIndex >= _agent.Count)
-        {
-            LevelManager.Instance.MinusEnemyNumber();
-            LevelManager.Instance.AttackHomeBase(this._enemyData.DamageToDefense);
-            this.OnDie?.Invoke(this.transform);
-            Destroy(this.gameObject);
-            return;
-        }
+        // if (_pathIndex >= _agent.Count)
+        // {
+        //     LevelManager.Instance.MinusEnemyNumber();
+        //     LevelManager.Instance.AttackHomeBase(this._enemyData.DamageToDefense);
+        //     this.OnDie?.Invoke(this.transform);
+        //     Destroy(this.gameObject);
+        //     return;
+        // }
 
-        Vector3 positionMove = _agent[_pathIndex].GetWorldPosition();
-        float distance = Vector3.Distance(this.transform.position, positionMove);
-        if (distance <= 0.1f)
-        {
-            _pathIndex++;
-        }
+        // Vector3 positionMove = _agent[_pathIndex].GetWorldPosition();
+        // float distance = Vector3.Distance(this.transform.position, positionMove);
+        // if (distance <= 0.1f)
+        // {
+        //     _pathIndex++;
+        // }
 
     }
 

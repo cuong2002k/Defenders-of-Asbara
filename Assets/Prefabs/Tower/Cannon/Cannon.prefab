@@ -48,13 +48,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64ce4c4316749f4792c5804ff863c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animationControl: {fileID: 0}
   _towerConfig: {fileID: 11400000, guid: 2d66bbb4837bdb945a242d19eba7e2ff, type: 2}
-  _bullet: {fileID: 7186750835830010540, guid: 50c3700fb176ca9478017255769fac29, type: 3}
+  _bullet: {fileID: 5655938062756051692, guid: 1e903dc0c558a2046a4ddd5f599d0830, type: 3}
   _attackTranform: []
   _towerLevels:
   - {fileID: 7959621270418280420, guid: 848ae2e21b0589f48ba294ed9dc1b640, type: 3}
   - {fileID: 3439581203219409255, guid: e8318d109540a424dbebcbca8ac89353, type: 3}
   - {fileID: 8270160404053093245, guid: 3c6ac8e1a27fc47458decc5cf689faf1, type: 3}
+  _currentTowerLevel: {fileID: 0}
 --- !u!114 &1183567215023315535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +82,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capacity: 5
 --- !u!65 &6704732187481822890
 BoxCollider:
   m_ObjectHideFlags: 0

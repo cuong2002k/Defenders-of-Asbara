@@ -60,7 +60,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
 
     private void BuildingProcess()
     {
-        if (!_isBuilding) return;
+        if (!_isBuilding || this._ghostTower == null) return;
         Node currentNode = GetCurrentNodeWithMouse();
         this._ghostTower.transform.position = currentNode.GetWorldPosition();
         UpdatePathWhenView();
@@ -82,7 +82,8 @@ public class PlacementSystem : Singleton<PlacementSystem>
     /// <param name="position">Location will be spawned</param>
     private void FinishPlacement(Vector3 position)
     {
-        GameObject objectPlacement = PoolManager.Instance.GetObjectPool(this._placement.TowerConfig.TowerPrefabs.gameObject);
+        TowerBase objectPlacement = PoolAble.TryGetPool<TowerBase>(_placement.TowerConfig.TowerPrefabs.gameObject);
+        objectPlacement.OnSpawn();
         // set default material
         objectPlacement.transform.position = position;
         objectPlacement.transform.rotation = _ghostTower.transform.rotation;
@@ -90,7 +91,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
         this._isBuilding = false;
         LevelManager.Instance.MinusCoin(this._placement.GetCurrentCostLevel);
         // hide object place
-        this._ghostTower.gameObject.SetActive(false);
+        this._ghostTower.OnDespawn();
         //Update Eneny Path
         this.UpdatePathWhenPlacement();
         this.PostEvent(EventID.OnUpdatePath, PathManager.Instance.Paths);
@@ -147,12 +148,10 @@ public class PlacementSystem : Singleton<PlacementSystem>
         ResetPlacementObject();
         _isBuilding = true;
         this._placement = tower;
-        GhostTower ghostInstance = PoolManager.Instance.GetObjectPool(tower.TowerConfig.GhostTower.gameObject).GetComponent<GhostTower>();
+        GhostTower ghostInstance = PoolAble.TryGetPool<GhostTower>(tower.TowerConfig.GhostTower.gameObject);
         if (ghostInstance != null)
         {
             this._ghostTower = ghostInstance;
-            _ghostTower.gameObject.SetActive(true);
-
             if (_radiusVisualized != null)
             {
                 this._radiusVisualized.SetupRadiusVisual(ghostInstance.transform, tower.CurrentTargetRange, tower.GetTargetRangeColor);
@@ -173,7 +172,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
         if (this._ghostTower != null)
         {
             this._radiusVisualized.Hide();
-            this._ghostTower.gameObject.SetActive(false);
+            this._ghostTower.OnDespawn();
             this._ghostTower = null;
 
         }
@@ -188,7 +187,7 @@ public class PlacementSystem : Singleton<PlacementSystem>
         if (_inputManager.EscButton)
         {
             _isBuilding = false;
-            _ghostTower.gameObject.SetActive(false);
+            _ghostTower.OnDespawn();
             UpdatePathWhenView();
         }
     }

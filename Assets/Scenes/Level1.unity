@@ -1257,7 +1257,7 @@ MonoBehaviour:
   _startPoint: {fileID: 2081888563}
   _endPoint: {fileID: 1678401701}
   _towerLibrary: {fileID: 11400000, guid: 8635904c4a4b99d4fbe0299ec86f352c, type: 2}
-  _coinLevel: 20
+  _coinLevel: 999
   _health: 5
   _levelState: 0
   _enemyNumber: 0
@@ -3270,11 +3270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6989741d114becd44b5929791ba3c31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolList:
-  - {fileID: -6386004407522824350, guid: 50c3700fb176ca9478017255769fac29, type: 3}
+  poolAbles:
   - {fileID: -1325399492269397812, guid: aa20681feea958043921f8405738dbd6, type: 3}
-  - {fileID: 1298587893312728822, guid: 6771a85eaf322054ebaf017cef68bd01, type: 3}
-  - {fileID: 9117235550918575928, guid: 48fa34dd40c1eaf459c97f07042e36d1, type: 3}
+  - {fileID: -6386004407522824350, guid: 50c3700fb176ca9478017255769fac29, type: 3}
 --- !u!4 &920054672
 Transform:
   m_ObjectHideFlags: 0
@@ -5263,8 +5261,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498994679}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.4999995, y: 0.016044736, z: 0.61099875}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 8.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

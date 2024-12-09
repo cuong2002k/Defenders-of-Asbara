@@ -55,7 +55,8 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bde1fa4877a5fc841a95a7ddaedd3c69, type: 2}
+  - {fileID: 2100000, guid: 2ce8e17ec088c1f43a6509d4702f7cfd, type: 2}
+  - {fileID: 2100000, guid: 2ce8e17ec088c1f43a6509d4702f7cfd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,30 +78,39 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 2, z: 0}
+  - {x: 4, y: 1, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        time: 0.014776615
+        value: 0.21951164
+        inSlope: -0.32090822
+        outSlope: -0.32090822
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.27135804
+      - serializedVersion: 3
+        time: 0.9950739
+        value: 0.57317054
+        inSlope: 0.19254696
+        outSlope: 0.19254696
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.45226052
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
       key0: {r: 0.7803922, g: 0.3137255, b: 0.3137255, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 0.70148623, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -123,13 +133,13 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 1
+    textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
   m_UseWorldSpace: 1
@@ -174,4 +184,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capacity: 2

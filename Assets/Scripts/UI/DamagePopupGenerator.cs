@@ -19,11 +19,11 @@ public class DamagePopupGenerator : Singleton<DamagePopupGenerator>
 
     public void GetPopupDamage(Vector3 position, string text, Color color)
     {
-        GameObject damagePopupInstance = PoolManager.Instance.GetObjectPool(_damagePopuPrefabs);
-        damagePopupInstance.transform.position = position;
-        TextMeshProUGUI dameText = damagePopupInstance.GetComponentInChildren<TextMeshProUGUI>();
-        dameText.text = text;
-        dameText.color = color;
+        // GameObject damagePopupInstance = PoolManager.Instance.GetObjectPool(_damagePopuPrefabs);
+        // damagePopupInstance.transform.position = position;
+        // TextMeshProUGUI dameText = damagePopupInstance.GetComponentInChildren<TextMeshProUGUI>();
+        // dameText.text = text;
+        // dameText.color = color;
     }
 
 

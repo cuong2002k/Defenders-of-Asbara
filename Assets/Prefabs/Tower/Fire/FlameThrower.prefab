@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4977519535681227628}
   - component: {fileID: 6299729026176863627}
   - component: {fileID: 3685346563378751471}
+  - component: {fileID: -4313643108127076977}
   m_Layer: 0
   m_Name: FlameThrower
   m_TagString: Untagged
@@ -155,3 +156,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyTimer: 1
+--- !u!114 &-4313643108127076977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8927755537398557013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -15,7 +15,7 @@ public class AutoDestroy : TimerBehavior
 
     private void DestroyObject()
     {
-        this.gameObject.SetActive(false);
+        PoolAble.TryReturn(this.gameObject);
     }
 
 

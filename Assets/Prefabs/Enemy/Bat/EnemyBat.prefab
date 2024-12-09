@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 7808636579398856344}
   - component: {fileID: 7125150329074263842}
   - component: {fileID: 2060494571740342799}
+  - component: {fileID: 8948221980188083353}
   m_Layer: 7
   m_Name: EnemyBat
   m_TagString: Untagged
@@ -124,6 +125,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.84521043, y: 0.6601597, z: 1}
   m_Center: {x: -0.0004890561, y: 0.39021093, z: 0}
+--- !u!114 &8948221980188083353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249445014899495975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2346e95f0e6ee994bb1c7a99f0eecbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radius: 2
+  _detectorLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1001 &6738698102443879241
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class Cannon : TowerBase
         Transform firstTarget = this._targetter.GetFirstTarget();
         GameObject bulletInstance = this.SpawnBullet(this._bullet, this._attackTranform[0].position);
         bulletInstance.GetComponent<BulletBase>().SetTarget(firstTarget);
+        bulletInstance.GetComponent<IPoolAble>().OnSpawn();
 
     }
 }

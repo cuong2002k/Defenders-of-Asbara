@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2362d86a09a3ef940b6e47ca1603c6bf, type: 3}
   m_Name: BatData
   m_EditorClassIdentifier: 
-  Health: 5
+  Health: 999
   Speed: 3
   Armor: 2
   CoinReceiver: 2

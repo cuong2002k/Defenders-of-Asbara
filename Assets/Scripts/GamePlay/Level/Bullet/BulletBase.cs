@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBase : MonoBehaviour
+public class BulletBase : MonoBehaviour, IPoolAble
 {
     protected Transform _target;
-    [SerializeField] protected List<Transform> _targets = new List<Transform>();
-    [SerializeField]
-    protected float _speed = 7f;
+    [SerializeField] protected float _speed = 7f;
     [SerializeField] protected Rigidbody _rigidbody;
+    [SerializeField] protected GameObject _hitEffect;
     protected int _damage = 2;
 
     protected virtual void Start()
@@ -22,14 +21,17 @@ public class BulletBase : MonoBehaviour
         this._target = target;
     }
 
-    public virtual void SetTarget(List<Transform> targets)
-    {
-        this._targets = targets;
-    }
-
     protected void InitCompnent()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
+    public virtual void OnSpawn()
+    {
+    }
+
+    public virtual void OnDespawn()
+    {
+        PoolAble.TryReturn(this.gameObject);
+    }
 }
