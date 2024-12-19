@@ -17,9 +17,13 @@ namespace ObserverExtentision
         {
             if (_instance == this)
             {
-                this.ClearAllListener();
                 _instance = null;
             }
+        }
+
+        private void OnDisable()
+        {
+            this.ClearAllListener();
         }
         #endregion
 

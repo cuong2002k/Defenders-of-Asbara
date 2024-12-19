@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2271591893104343867}
   - component: {fileID: 4932181789539309428}
   - component: {fileID: 6311499832047616814}
-  - component: {fileID: 6694975116526515472}
   - component: {fileID: 5907523663669642518}
   - component: {fileID: 2762096937889316165}
   m_Layer: 0
@@ -29,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2271591893104343866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.391, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -68,18 +67,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.17
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6694975116526515472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2271591893104343866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5907523663669642518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,10 +92,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f7e8b3b19d5e1419ff16bbd9ddc98f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 7
-  _rigidbody: {fileID: 0}
+  _maxSize: 5
+  _initSize: 5
+  _target: {fileID: 0}
   _hitEffect: {fileID: 7467061523283178647, guid: 15963ca40220ff8499749cf8f4819795, type: 3}
-  _muzzleEffect: {fileID: 8134604175123436128, guid: e4ac21f531e26dd41bebc8ec91d1fd5c, type: 3}
+  _speed: 10
+  _rotationSpeed: 5
+  _muzzleEffect: {fileID: 7695751195762908017, guid: 7432ca2326cc0eb46a68d21c46b0005a, type: 3}
 --- !u!1 &2271591893466433683
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,8 +321,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.29149958, b: 0.1462264, a: 1}
-      maxColor: {r: 0.990566, g: 0.35045987, b: 0.16353682, a: 1}
+      minColor: {r: 0, g: 0, b: 0, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5144,7 +5134,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 0.29149958, b: 0.1462264, a: 1}
-      maxColor: {r: 0.9811321, g: 0.5176471, b: 0, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9786,7 +9776,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6f51257192dad6043a716c3a1f74f4e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9837,9 +9827,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.34095314, b: 0.08962262, a: 1}
-      key1: {r: 1, g: 0.46791023, b: 0.10849059, a: 0}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
+      key1: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 0}
+      key2: {r: 1, g: 0.15532212, b: 0, a: 0.47058824}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -9847,16 +9837,16 @@ TrailRenderer:
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
-      ctime2: 0
+      ctime2: 40670
       ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 24094
       atime1: 65535
-      atime2: 0
-      atime3: 0
+      atime2: 49344
+      atime3: 65535
       atime4: 0
       atime5: 0
       atime6: 0

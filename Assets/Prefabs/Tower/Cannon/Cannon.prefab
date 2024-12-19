@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6388554315910474914}
   - component: {fileID: 3316171816723752754}
   - component: {fileID: 1183567215023315535}
-  - component: {fileID: 9117235550918575928}
   - component: {fileID: 6704732187481822890}
   m_Layer: 10
   m_Name: Cannon
@@ -48,15 +47,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64ce4c4316749f4792c5804ff863c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationControl: {fileID: 0}
+  _maxSize: 10
+  _initSize: 3
   _towerConfig: {fileID: 11400000, guid: 2d66bbb4837bdb945a242d19eba7e2ff, type: 2}
-  _bullet: {fileID: 5655938062756051692, guid: 1e903dc0c558a2046a4ddd5f599d0830, type: 3}
+  _bulletPrefabs: {fileID: 5655938062756051692, guid: 1e903dc0c558a2046a4ddd5f599d0830, type: 3}
   _attackTranform: []
   _towerLevels:
   - {fileID: 7959621270418280420, guid: 848ae2e21b0589f48ba294ed9dc1b640, type: 3}
   - {fileID: 3439581203219409255, guid: e8318d109540a424dbebcbca8ac89353, type: 3}
   - {fileID: 8270160404053093245, guid: 3c6ac8e1a27fc47458decc5cf689faf1, type: 3}
   _currentTowerLevel: {fileID: 0}
+  _muzzle: {fileID: 8134604175123436128, guid: e4ac21f531e26dd41bebc8ec91d1fd5c, type: 3}
 --- !u!114 &1183567215023315535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,18 +71,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _turret: {fileID: 0}
---- !u!114 &9117235550918575928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 385610763401936839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &6704732187481822890
 BoxCollider:
   m_ObjectHideFlags: 0

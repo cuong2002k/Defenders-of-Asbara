@@ -10,11 +10,12 @@ public class Laser : TowerBase
 
     protected override void Shoot()
     {
-        this._animationControl.PlayAttackAnimation();
-        GameObject bulletInstance = this.SpawnBullet(this._bullet, this._attackTranform[0].position);
+        Transform attackTranform = this.GetFirstAttackPoint();
+        GameObject bulletInstance = this.SpawnPrefabs(this._bulletPrefabs, attackTranform.position);
+        bulletInstance.GetComponent<BulletBase>().Initialized(this.finalDamage);
         bulletInstance.transform.SetParent(this._targetRotation.Turret);
         bulletInstance.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        bulletInstance.transform.position = this._attackTranform[0].position;
+        bulletInstance.transform.position = attackTranform.position;
         bulletInstance.transform.localScale = Vector3.one;
     }
 }

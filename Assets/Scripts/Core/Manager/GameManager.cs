@@ -23,21 +23,13 @@ public class GameManager : Singleton<GameManager>
         {
             case GameState.START:
                 LevelManager.Instance.ChangeLevelState(LevelState.BUILDING);
-                break;
-            case GameState.WIN:
-                // open win panel
-                ViewBase winPanel = UIManager.GetView<WinPanel>();
-                if (winPanel != null)
-                {
-                    winPanel.Show();
-                }
-                PauseGame();
-                break;
-            case GameState.OVER:
+                PlayGame();
                 break;
             case GameState.PAUSE:
+                PauseGame();
                 break;
-            case GameState.LOADING:
+            case GameState.PLAY:
+                PlayGame();
                 break;
             default:
                 return;
@@ -47,5 +39,10 @@ public class GameManager : Singleton<GameManager>
     private void PauseGame()
     {
         Time.timeScale = 0;
+    }
+
+    private void PlayGame()
+    {
+        Time.timeScale = 1;
     }
 }

@@ -18,15 +18,15 @@ public class PoolManager : Singleton<PoolManager>
         }
     }
 
-    public ObjectPool<PoolAble> CreatePool(PoolAble prefabs, Transform parent)
+    public ObjectPool<PoolAble> CreatePool(PoolAble poolAble, Transform parent)
     {
-        if (this._poolContainer.ContainsKey(prefabs))
+        if (this._poolContainer.ContainsKey(poolAble))
         {
-            Common.LogWarning($"Pool for type {prefabs.gameObject.name} already exit", prefabs);
-            return this._poolContainer[prefabs];
+            Common.LogWarning($"Pool for type {poolAble.gameObject.name} already exit", poolAble);
+            return this._poolContainer[poolAble];
         }
-        ObjectPool<PoolAble> newPool = new ObjectPool<PoolAble>(prefabs, parent);
-        this._poolContainer[prefabs] = newPool;
+        ObjectPool<PoolAble> newPool = new ObjectPool<PoolAble>(poolAble, parent, poolAble.InitSize, poolAble.MaxSize);
+        this._poolContainer[poolAble] = newPool;
         return newPool;
     }
 
@@ -34,7 +34,6 @@ public class PoolManager : Singleton<PoolManager>
     {
         if (_poolContainer.TryGetValue(prefabs, out ObjectPool<PoolAble> pool))
         {
-
             return pool;
         }
         return this.CreatePool(prefabs, this.transform);

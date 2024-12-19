@@ -107,13 +107,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64ce4c4316749f4792c5804ff863c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationControl: {fileID: 0}
+  _maxSize: 1
+  _initSize: 1
   _towerConfig: {fileID: 11400000, guid: c8fca0fb962abae44a2a6b390a4b32e2, type: 2}
-  _bullet: {fileID: 5655938062756051692, guid: 1e903dc0c558a2046a4ddd5f599d0830, type: 3}
+  _bulletPrefabs: {fileID: 2271591893104343866, guid: 22326c65b87aae4488d28843f581e64e, type: 3}
+  _muzzle: {fileID: 7695751195762908017, guid: 7432ca2326cc0eb46a68d21c46b0005a, type: 3}
   _attackTranform: []
   _towerLevels:
   - {fileID: 3412505655187254149, guid: 9c507e7610f2ee543bc096e65f918243, type: 3}
-  _currentTowerLevel: {fileID: 0}
+  - {fileID: 293428120647041914, guid: 801ab5abe12753c42bb98bda6f0a767b, type: 3}
+  - {fileID: 2629826971587141422, guid: 04b9c77e0405ed246b2cd43b687df889, type: 3}
 --- !u!114 &2154987930896937004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxSize: 1
+  _initSize: 1
 --- !u!65 &4496031757869932990
 BoxCollider:
   m_ObjectHideFlags: 0

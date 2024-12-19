@@ -5,9 +5,6 @@ using UnityEngine;
 public enum GameState
 {
     START,
-    WIN,
-    OVER,
     PAUSE,
-    LOADING,
-    BULDING
+    PLAY,
 }

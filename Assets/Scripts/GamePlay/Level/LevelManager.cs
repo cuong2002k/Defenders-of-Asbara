@@ -29,6 +29,11 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private int _health;
     public int Health => _health;
 
+    [SerializeField] private int _maxHealth;
+    public int MaxHealth => _maxHealth;
+
+    private int _Kill = 0;
+
     #region Unity Logic
     protected override void Awake()
     {
@@ -42,6 +47,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         // register listener event when click start wave
         this.RegisterListener(EventID.OnStartWave, (param) => OnSpawnEnemy());
+        this._health = this._maxHealth;
     }
 
     private void OnDisable()
@@ -67,7 +73,14 @@ public class LevelManager : Singleton<LevelManager>
             case LevelState.BUILDING:
                 break;
             case LevelState.WIN:
-                GameManager.Instance.ChangeState(GameState.WIN);
+                // open win panel
+                WinPanel winPanel = UIManager.GetView<WinPanel>() as WinPanel;
+                if (winPanel != null)
+                {
+                    winPanel.Initialize(_health, _maxHealth, this._Kill);
+                    winPanel.Show();
+                }
+                GameManager.Instance.ChangeState(GameState.PAUSE);
                 break;
             case LevelState.LOSE:
                 Debug.Log("Lose");
@@ -100,7 +113,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         _enemyNumber--;
 
-        if (this._enemyNumber == 0 && this._levelState == LevelState.ALL_ENEMIES_SPAWN)
+        if (this._enemyNumber <= 0 && this._levelState == LevelState.ALL_ENEMIES_SPAWN)
         {
             this.ChangeLevelState(LevelState.WIN);
         }

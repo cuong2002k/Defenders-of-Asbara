@@ -13,7 +13,8 @@ public class TowerConfig : ScriptableObject
     public TowerBase TowerPrefabs;
     [Header("Show image button tower")]
     public Sprite Icon;
-
     [Header("What color tower visualized")]
     public Color color;
+    [Header("What layer tower target from?")]
+    public LayerMask TargetLayer;
 }

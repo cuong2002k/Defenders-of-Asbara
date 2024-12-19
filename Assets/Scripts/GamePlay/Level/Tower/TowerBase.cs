@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using DefenderOfAsbara.UI;
 using UnityEngine;
-public abstract class TowerBase : MonoBehaviour
+public abstract class TowerBase : PoolAble
 {
-    /// <summary>
-    /// Animation Component
-    /// </summary>
-    protected TowerAmationController _animationControl;
     /// <summary>
     /// Target Rotation Component
     /// </summary>
@@ -18,7 +14,8 @@ public abstract class TowerBase : MonoBehaviour
     public TowerConfig TowerConfig => _towerConfig;
 
     [Header("Ref with desier bullet type")]
-    [SerializeField] protected GameObject _bullet;
+    [SerializeField] protected GameObject _bulletPrefabs;
+    [SerializeField] protected GameObject _muzzle;
 
     [Header("Ref with attack tranform of tower")]
     [SerializeField] protected Transform[] _attackTranform;
@@ -26,8 +23,8 @@ public abstract class TowerBase : MonoBehaviour
     [Header("Save all tower level")]
     [SerializeField] protected TowerLevel[] _towerLevels;
     [Header("Current level index")]
-    protected int _currentLevel = 0;
-    public TowerLevel _currentTowerLevel;
+    protected int _currentLevel = 0; // index level
+    protected TowerLevel _currentTowerLevel; // save current level of tower
 
     #region Unity Logic
     protected virtual void Awake()
@@ -37,53 +34,59 @@ public abstract class TowerBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        Initialized(this.CurrentTowerLevel);
+
     }
 
     protected virtual void Update()
     {
         Transform target = this._targetter.GetFirstTarget();
 
-        if (target == null)
-        {
-            this._animationControl?.ResetAnimation();
-            return;
-        }
-
+        if (target == null) return;
         CheckAttacking();
     }
 
     #endregion End Unity Logic
 
-    private void CacheComponent()
+    protected virtual void CacheComponent()
     {
         _targetter = GetComponentInChildren<Targetter>();
         _targetRotation = GetComponent<TargetRotation>();
+
     }
 
-    private void Initialized(TowerLevel towerLevel)
+    [ContextMenu("Init")]
+    protected virtual void Initialized()
     {
-        TowerData towerData = towerLevel.TowerLevelData;
+        TowerData towerData = CurrentTowerLevel.TowerLevelData;
         _currentTowerLevel = Instantiate(towerData.TowerPrefabs.gameObject, this.transform).GetComponent<TowerLevel>();
+        this._attackPerSecond = towerData.TryGetStats(StatsType.ATTACKRATE);
+        _currentTimer = 1f / this._attackPerSecond;
+
+        if (_targetRotation != null)
+        {
+            _targetRotation.Initialize(towerData.RotationSpeed, this._currentTowerLevel.Turret);
+        }
+
+        // setup attack tranform
         if (_currentTowerLevel != null)
         {
-            _targetter.Initialize(towerData.TargetRange, towerData.TargetLayer);
-            _animationControl = GetComponentInChildren<TowerAmationController>();
-            _animationControl.SetAnimationSpeed(towerData.AttackPerSecond);
             _attackTranform = _currentTowerLevel.AttackTranform;
-            this._attackPerSecond = towerData.AttackPerSecond;
-            this._targetRotation.Initialize(towerData.RotationSpeed, _currentTowerLevel.Turret);
-            _currentTimer = 1f / this._attackPerSecond;
         }
+
+        // Setup targeter
+        if (_targetter != null)
+        {
+            _targetter.Initialize(towerData.TryGetStats(StatsType.ATTACKRANGE), TowerConfig.TargetLayer);
+        }
+
     }
 
     #region Attack
     protected float _attackPerSecond;
     protected Targetter _targetter;
-    public Targetter Targetter => _targetter;
     private float _currentTimer = 0;
 
-    private void CheckAttacking()
+    protected virtual void CheckAttacking()
     {
         if (this.CheckTimer())
         {
@@ -91,7 +94,7 @@ public abstract class TowerBase : MonoBehaviour
         }
     }
 
-    private bool CheckTimer()
+    protected virtual bool CheckTimer()
     {
         _currentTimer += Time.deltaTime;
         if (_currentTimer >= 1f / this._attackPerSecond)
@@ -104,11 +107,22 @@ public abstract class TowerBase : MonoBehaviour
 
     protected abstract void Shoot();
 
-    protected virtual GameObject SpawnBullet(GameObject bulletObject, Vector3 position)
+    protected virtual GameObject SpawnPrefabs(GameObject prefabs, Vector3 position)
     {
-        GameObject bullet = PoolManager.Instance.GetObjectPool(bulletObject);
+        GameObject bullet = PoolAble.TryGetPool(prefabs);
         bullet.transform.position = position;
         return bullet;
+    }
+
+    protected int finalDamage
+    {
+        get
+        {
+            TowerData data = this._currentTowerLevel.TowerLevelData;
+            float dameRandom = Random.Range(data.TryGetStats(StatsType.MINDAMAGE), data.TryGetStats(StatsType.MAXDAMAGE));
+            return Mathf.RoundToInt(dameRandom);
+        }
+
     }
 
     #endregion End Attack
@@ -165,7 +179,7 @@ public abstract class TowerBase : MonoBehaviour
         Destroy(_currentTowerLevel.gameObject);
         this._currentLevel++;
         LevelManager.Instance.MinusCoin(this.GetCurrentCostLevel);
-        Initialized(this.CurrentTowerLevel);
+        Initialized();
     }
 
     public void SellTower()
@@ -176,9 +190,23 @@ public abstract class TowerBase : MonoBehaviour
 
         if (towerLevel != null)
         {
+            this.OnDespawn();
             Destroy(towerLevel.gameObject);
-            this.gameObject.SetActive(false);
         }
+    }
+
+    public override void OnSpawn()
+    {
+        base.OnSpawn();
+        Initialized();
+    }
+
+    public override void OnDespawn()
+    {
+        base.OnDespawn();
+        this._currentLevel = 0;
+        Destroy(this._currentTowerLevel.gameObject);
+        PoolAble.TryReturn(this.gameObject);
     }
 
     public float CurrentTargetRange
@@ -190,7 +218,7 @@ public abstract class TowerBase : MonoBehaviour
                 Common.LogWarning("Out range in tower level", this.gameObject);
                 return 0;
             }
-            return this._towerLevels[this._currentLevel].TowerLevelData.TargetRange;
+            return this._towerLevels[this._currentLevel].TowerLevelData.TryGetStats(StatsType.ATTACKRANGE);
         }
     }
 
@@ -221,4 +249,32 @@ public abstract class TowerBase : MonoBehaviour
             return this._towerConfig.color;
         }
     }
+
+    #region tranform
+    protected virtual Transform GetFirstAttackPoint()
+    {
+        if (this._attackTranform.Length == 0) return this.transform;
+        return this._attackTranform[0];
+    }
+
+    protected virtual Transform GetRandomAttackPoint()
+    {
+        if (this._attackTranform.Length == 0) return this.transform;
+        int randomNum = Random.Range(0, this._attackTranform.Length);
+        return this._attackTranform[randomNum];
+    }
+
+    protected virtual Transform GetAttackPointInOrder(ref int index)
+    {
+        if (this._attackTranform.Length == 0) return this.transform;
+        if (index >= this._attackTranform.Length)
+        {
+            index = -1;
+        }
+        index++;
+        return _attackTranform[index];
+
+    }
+
+    #endregion
 }

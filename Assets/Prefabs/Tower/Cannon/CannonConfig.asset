@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: Cannon
   GhostTower: {fileID: 7916366927801683285, guid: aa20681feea958043921f8405738dbd6, type: 3}
   TowerPrefabs: {fileID: 3316171816723752754, guid: 48fa34dd40c1eaf459c97f07042e36d1, type: 3}
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 763ada18a155b3e40b848f21ac9e6d11, type: 3}
   color: {r: 0.35292807, g: 0.9716981, b: 0.89607066, a: 0.03137255}

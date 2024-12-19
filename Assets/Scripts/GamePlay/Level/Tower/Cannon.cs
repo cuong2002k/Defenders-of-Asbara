@@ -6,17 +6,19 @@ public class Cannon : TowerBase
 {
     protected override void Shoot()
     {
-        if (this._bullet == null)
+        if (this._bulletPrefabs == null)
         {
             Common.LogWarning("Bullet prefab not found in {0}", this.gameObject);
             return;
         }
-
-        this._animationControl.PlayAttackAnimation();
         Transform firstTarget = this._targetter.GetFirstTarget();
-        GameObject bulletInstance = this.SpawnBullet(this._bullet, this._attackTranform[0].position);
-        bulletInstance.GetComponent<BulletBase>().SetTarget(firstTarget);
+        Transform attackTranform = this.GetFirstAttackPoint();
+        GameObject bulletInstance = this.SpawnPrefabs(this._bulletPrefabs, attackTranform.position);
+        bulletInstance.GetComponent<BulletBase>().Initialized(firstTarget, finalDamage);
         bulletInstance.GetComponent<IPoolAble>().OnSpawn();
 
+        // Spawn Muzzle
+        GameObject muzzleInstance = this.SpawnPrefabs(this._muzzle, attackTranform.position);
+        muzzleInstance.transform.rotation = Quaternion.LookRotation(attackTranform.forward);
     }
 }

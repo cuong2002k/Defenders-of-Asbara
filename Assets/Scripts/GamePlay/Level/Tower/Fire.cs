@@ -17,7 +17,7 @@ public class Fire : TowerBase
 
     protected override void Shoot()
     {
-        GameObject bulletInstance = this.SpawnBullet(this._bullet, this._attackTranform[0].position);
+        GameObject bulletInstance = this.SpawnPrefabs(this._bulletPrefabs, this._attackTranform[0].position);
         bulletInstance.transform.SetParent(this._targetRotation.Turret);
         bulletInstance.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }

@@ -10,9 +10,9 @@ public class CannonBullet : BulletBase
         trailRenderer = GetComponentInChildren<TrailRenderer>();
     }
 
-    public override void SetTarget(Transform target)
+    public override void Initialized(Transform target, int damage)
     {
-        base.SetTarget(target);
+        base.Initialized(target, damage);
         if (this._rigidbody == null)
         {
             this.InitCompnent();
@@ -58,11 +58,11 @@ public class CannonBullet : BulletBase
     {
         base.OnSpawn();
         if (this._muzzleEffect == null) return;
-        GameObject muzzle = PoolAble.TryGetPool(this._muzzleEffect);
-        muzzle.transform.position = this.transform.position;
+        // GameObject muzzle = PoolAble.TryGetPool(this._muzzleEffect);
+        // muzzle.transform.position = this.transform.position;
         Vector3 bulletDirection = CaculatorVelocity();
         this.transform.rotation = Quaternion.LookRotation(bulletDirection);
-        muzzle.transform.rotation = Quaternion.LookRotation(bulletDirection);
+        // muzzle.transform.rotation = Quaternion.LookRotation(bulletDirection);
 
 
     }

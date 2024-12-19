@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8867910771655976986}
   - component: {fileID: 8867910771665586172}
-  - component: {fileID: 7027126756445816101}
   - component: {fileID: 162776504978384617}
   m_Layer: 0
   m_Name: Tow_Laser1
@@ -140,19 +139,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7027126756445816101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8867910771656209466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d158269fb2749f641832e8e26c6e32f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
 --- !u!114 &162776504978384617
 MonoBehaviour:
   m_ObjectHideFlags: 0

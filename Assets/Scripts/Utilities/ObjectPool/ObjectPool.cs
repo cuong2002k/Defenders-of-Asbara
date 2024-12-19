@@ -45,8 +45,10 @@ public class ObjectPool<T> where T : MonoBehaviour
     public void Return(T obj)
     {
         if (obj == null) return;
+
         obj.gameObject.SetActive(false);
         this._availableObject.Enqueue(obj);
+
     }
 
     public void ClearPool()

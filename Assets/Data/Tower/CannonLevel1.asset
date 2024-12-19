@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11cb7cc0c708c4ba5ffb9a3d01a53a, type: 3}
+  m_Name: CannonLevel1
+  m_EditorClassIdentifier: 
+  TowerPrefabs: {fileID: 7959621270418280420, guid: 848ae2e21b0589f48ba294ed9dc1b640, type: 3}
+  _statsModifiers:
+  - StatusType: 0
+    value: 40
+  - StatusType: 1
+    value: 60
+  - StatusType: 5
+    value: 2
+  - StatusType: 8
+    value: 0.5
+  - StatusType: 6
+    value: 100
+  - StatusType: 7
+    value: 70
+  RotationSpeed: 20

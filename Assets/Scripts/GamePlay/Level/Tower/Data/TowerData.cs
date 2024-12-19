@@ -7,21 +7,20 @@ public class TowerData : ScriptableObject
 {
     [Header("Prefabs spawn in level")]
     public TowerLevel TowerPrefabs;
-    [Header("Show image button tower")]
-    public int TowerCost;
-    [Header("Cost to sell tower")]
-    public int TowerCostSell;
-    [Header("Range to target")]
-    public float TargetRange;
-    [Header("Number of attacks per second")]
-    public int AttackPerSecond;
-    [Header("Number of dame per second")]
-    public float DamePerSecond;
-    [Header("Rotation speed of the turret")]
+
+    public List<StatsModifier> _statsModifiers = new List<StatsModifier>();
+
     public float RotationSpeed;
-    public int TargetNumber;
-    [Header("What layer tower target from?")]
-    public LayerMask TargetLayer;
 
-
+    public float TryGetStats(StatsType statsType)
+    {
+        for (int i = 0; i < this._statsModifiers.Count; i++)
+        {
+            if (_statsModifiers[i].StatusType == statsType)
+            {
+                return _statsModifiers[i].value;
+            }
+        }
+        return 0;
+    }
 }

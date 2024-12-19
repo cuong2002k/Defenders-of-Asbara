@@ -152,7 +152,6 @@ GameObject:
   - component: {fileID: 1551802666398471842}
   - component: {fileID: 6242649290269481619}
   - component: {fileID: 463112997723276024}
-  - component: {fileID: 942071581389042886}
   - component: {fileID: 171246784}
   m_Layer: 0
   m_Name: CannonBullet
@@ -207,11 +206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f81032d39fe60f4e90b0903377f0417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targets: []
-  _speed: 7
-  _rigidbody: {fileID: 0}
-  _muzzleEffect: {fileID: 8134604175123436128, guid: e4ac21f531e26dd41bebc8ec91d1fd5c, type: 3}
+  _maxSize: 10
+  _initSize: 5
+  _target: {fileID: 0}
   _hitEffect: {fileID: 7467061523283178647, guid: 15963ca40220ff8499749cf8f4819795, type: 3}
+  _speed: 7
+  _muzzleEffect: {fileID: 8134604175123436128, guid: e4ac21f531e26dd41bebc8ec91d1fd5c, type: 3}
 --- !u!135 &463112997723276024
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -225,18 +225,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.17
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &942071581389042886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5655938062756051692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &171246784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5401,7 +5389,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.9
-      minScalar: 1
+      minScalar: 1.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5454,7 +5442,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.85
-      minScalar: 1
+      minScalar: 1.2
       maxCurve:
         serializedVersion: 2
         m_Curve:

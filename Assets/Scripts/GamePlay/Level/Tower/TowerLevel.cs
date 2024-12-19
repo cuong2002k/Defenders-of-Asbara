@@ -21,7 +21,7 @@ public class TowerLevel : MonoBehaviour
     {
         get
         {
-            return this._towerData.TowerCost;
+            return Mathf.RoundToInt(this._towerData.TryGetStats(StatsType.COST));
         }
     }
 
@@ -29,7 +29,7 @@ public class TowerLevel : MonoBehaviour
     {
         get
         {
-            return this._towerData.TowerCostSell;
+            return Mathf.RoundToInt(this._towerData.TryGetStats(StatsType.COSTSELL));
         }
     }
 

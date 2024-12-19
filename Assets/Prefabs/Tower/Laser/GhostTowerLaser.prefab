@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3582952940676328336}
   - component: {fileID: 3582952940676328337}
-  - component: {fileID: 3602489785261592072}
   m_Layer: 0
   m_Name: GhostTowerLaser
   m_TagString: Untagged
@@ -46,25 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb996f4842be7c9408f1e026b25f1216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxSize: 1
+  _initSize: 1
   _valid: {fileID: 2100000, guid: 69d4dbc31b3757641a38918453b2facb, type: 2}
   _inValid: {fileID: 2100000, guid: 3b6a444ccad219444a3ece603be5318d, type: 2}
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
   _radius: 0.3
---- !u!114 &3602489785261592072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3582952940676328350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _capacity: 1
 --- !u!1001 &6581355857705130103
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -50,21 +50,21 @@ public class Enemy : MonoBehaviour, IDamage
 
     void Update()
     {
-        // if (_pathIndex >= _agent.Count)
-        // {
-        //     LevelManager.Instance.MinusEnemyNumber();
-        //     LevelManager.Instance.AttackHomeBase(this._enemyData.DamageToDefense);
-        //     this.OnDie?.Invoke(this.transform);
-        //     Destroy(this.gameObject);
-        //     return;
-        // }
+        if (_pathIndex >= _agent.Count)
+        {
+            LevelManager.Instance.MinusEnemyNumber();
+            LevelManager.Instance.AttackHomeBase(this._enemyData.DamageToDefense);
+            this.OnDie?.Invoke(this.transform);
+            Destroy(this.gameObject);
+            return;
+        }
 
-        // Vector3 positionMove = _agent[_pathIndex].GetWorldPosition();
-        // float distance = Vector3.Distance(this.transform.position, positionMove);
-        // if (distance <= 0.1f)
-        // {
-        //     _pathIndex++;
-        // }
+        Vector3 positionMove = _agent[_pathIndex].GetWorldPosition();
+        float distance = Vector3.Distance(this.transform.position, positionMove);
+        if (distance <= 0.1f)
+        {
+            _pathIndex++;
+        }
 
     }
 
@@ -94,9 +94,8 @@ public class Enemy : MonoBehaviour, IDamage
     /// <param name="damage">Dame taken</param>
     public void TakeDamage(int damage)
     {
-        _health -= damage;
-        GameObject hitInstance = Instantiate(this._hitEffect, transform.position, Quaternion.identity);
-        Destroy(hitInstance, 2f);
+        int dameFinal = Mathf.Max(damage - this._enemyData.Armor, 1);
+        _health -= dameFinal;
         if (_health <= 0)
         {
             LevelManager.Instance.AddCoin(this._coinReceiver);

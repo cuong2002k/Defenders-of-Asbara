@@ -5,27 +5,46 @@ using UnityEngine;
 
 public class RocketBullet : BulletBase
 {
-    [SerializeField] private GameObject _muzzleEffect;
-    private float _turnSpeed = 2f;
 
-    public override void OnSpawn()
+    [Header("Missile Properties")]
+    public float _rotationSpeed = 5f;        // How quickly the missile can turn
+    void FixedUpdate()
     {
-        base.OnSpawn();
+        if (_target != null)
+        {
+            // Calculate direction to target
+            Vector3 directionToTarget = (_target.position - transform.position).normalized;
 
+            // Smoothly rotate towards the target
+            Quaternion rotationToTarget = Quaternion.LookRotation(directionToTarget);
+            _rigidbody.rotation = Quaternion.Slerp(_rigidbody.rotation, rotationToTarget, _rotationSpeed * Time.fixedDeltaTime);
 
+            // Move forward
+            _rigidbody.velocity = transform.forward * _speed;
+        }
     }
 
+    // void FindClosestTarget()
+    // {
+    //     // Find all potential targets on the specified layer
+    //     Collider[] potentialTargets = Physics.OverlapSphere(transform.position, 100f, targetLayer);
 
-    private void FixedUpdate()
-    {
-        if (this._target == null) return;
-        this._rigidbody.velocity = this.transform.forward * this._speed;
+    //     float closestDistance = Mathf.Infinity;
+    //     Transform closestTarget = null;
 
-        var rocketRotation = Quaternion.LookRotation(this._target.position - this.transform.position);
+    //     // Find the closest target
+    //     foreach (Collider targetCollider in potentialTargets)
+    //     {
+    //         float distance = Vector3.Distance(transform.position, targetCollider.transform.position);
+    //         if (distance < closestDistance)
+    //         {
+    //             closestDistance = distance;
+    //             closestTarget = targetCollider.transform;
+    //         }
+    //     }
 
-        _rigidbody.MoveRotation(Quaternion.RotateTowards(this.transform.rotation, rocketRotation, this._turnSpeed));
-
-    }
+    //     _target = closestTarget;
+    // }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,4 +54,5 @@ public class RocketBullet : BulletBase
         }
 
     }
+
 }

@@ -9,7 +9,9 @@ using UnityEngine.UI;
 public class TowerSpawnButton : MonoBehaviour
 {
     private TowerBase _tower;
-    public TextMeshProUGUI Text;
+    public TextMeshProUGUI Name;
+    public TextMeshProUGUI Cost;
+    public Image Icon;
     public Button Button;
 
     private void Start()
@@ -28,8 +30,9 @@ public class TowerSpawnButton : MonoBehaviour
         if (tower == null) return;
 
         this._tower = tower;
-        this.Text.text = this._tower.TowerConfig.Name;
-
+        this.Name.text = this._tower.TowerConfig.Name;
+        this.Icon.sprite = this._tower.TowerConfig.Icon;
+        this.Cost.text = this._tower.CurrentTowerLevel.GetTowerCost + "";
     }
 
     /// <summary>
@@ -50,10 +53,13 @@ public class TowerSpawnButton : MonoBehaviour
         if (this._tower.GetCurrentCostLevel <= CurrentCoin)
         {
             this.Button.enabled = true;
+            this.Cost.color = Color.yellow;
         }
         else
         {
             this.Button.enabled = false;
+            this.Cost.color = Color.red;
+
         }
     }
 

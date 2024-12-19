@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolAble : MonoBehaviour
+public class PoolAble : MonoBehaviour, IPoolAble
 {
     private ObjectPool<PoolAble> _poolAvailable;
+    [SerializeField] private int _maxSize = 1;
+    [SerializeField] private int _initSize = 1;
+
+    public int MaxSize => _maxSize;
+    public int InitSize => _initSize;
 
     public ObjectPool<PoolAble> PoolAvailable
     {
@@ -49,12 +54,11 @@ public class PoolAble : MonoBehaviour
         Instantiate(prefabs).GetComponent<T>();
     }
 
-    private void OnSpawnPool(PoolAble poolAble)
+    public virtual void OnSpawn()
+    { }
+
+    public virtual void OnDespawn()
     {
-        var pool = poolAble.GetComponent<IPoolAble>();
-        if (pool != null)
-        {
-            pool.OnSpawn();
-        }
+        PoolAble.TryReturn(this.gameObject);
     }
 }

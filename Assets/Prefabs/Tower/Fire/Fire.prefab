@@ -72,7 +72,6 @@ GameObject:
   - component: {fileID: 6527072689219270046}
   - component: {fileID: 6527072689219270045}
   - component: {fileID: 6750786046740056865}
-  - component: {fileID: 6750786046740056862}
   m_Layer: 10
   m_Name: Fire
   m_TagString: Untagged
@@ -108,9 +107,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5cf3aef49666b41829df2cccff9a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationControl: {fileID: 0}
+  _maxSize: 1
+  _initSize: 1
   _towerConfig: {fileID: 11400000, guid: 10d581b215dbc564c91df6a2625fd49c, type: 2}
-  _bullet: {fileID: 8927755537398557013, guid: 7b5e781f4eea2c9479edf2e5de2ecd99, type: 3}
+  _bulletPrefabs: {fileID: 7007238705529040715, guid: 77f7203e020620a46860537d378c275f, type: 3}
   _attackTranform:
   - {fileID: 0}
   _towerLevels:
@@ -144,15 +144,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.47620463, y: 0.67528206, z: 0.5311004}
   m_Center: {x: -0.033088088, y: 0.16235897, z: 0.0007647872}
---- !u!114 &6750786046740056862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6527072689219270044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4554099d469d1d84280480b93a81b2d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

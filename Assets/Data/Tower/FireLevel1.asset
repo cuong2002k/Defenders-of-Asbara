@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11cb7cc0c708c4ba5ffb9a3d01a53a, type: 3}
+  m_Name: FireLevel1
+  m_EditorClassIdentifier: 
+  TowerPrefabs: {fileID: 2512434926699756958, guid: b59dfd6e26351214fae97411f37854a0, type: 3}
+  _statsModifiers:
+  - StatusType: 0
+    value: 15
+  - StatusType: 1
+    value: 25
+  - StatusType: 5
+    value: 3
+  - StatusType: 8
+    value: 5
+  - StatusType: 6
+    value: 80
+  - StatusType: 7
+    value: 55
+  RotationSpeed: 30

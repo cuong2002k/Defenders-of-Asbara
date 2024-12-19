@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GhostTower : MonoBehaviour, IPoolAble
+public class GhostTower : PoolAble
 {
     // material showing when valid
     [SerializeField] private Material _valid;
@@ -54,13 +54,10 @@ public class GhostTower : MonoBehaviour, IPoolAble
         Gizmos.DrawSphere(this.transform.position, _radius);
     }
 
-    public void OnSpawn()
+    public override void OnSpawn()
     {
+        base.OnSpawn();
         this.SetMaterial(this._valid);
     }
 
-    public void OnDespawn()
-    {
-        PoolAble.TryReturn(this.gameObject);
-    }
 }

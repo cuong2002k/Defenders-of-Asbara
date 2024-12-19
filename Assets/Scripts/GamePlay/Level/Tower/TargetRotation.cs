@@ -12,7 +12,7 @@ public class TargetRotation : MonoBehaviour
     protected float _rotationSpeed; // speed rotation when have target
 
     #region Unity Logic
-    private void Start()
+    private void Awake()
     {
         this._targetAble = GetComponentInChildren<Targetter>();
     }
