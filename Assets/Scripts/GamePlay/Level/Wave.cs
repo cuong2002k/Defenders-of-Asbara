@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Wave : TimerBehavior
 {
-    
+
     // list monsters will appear in the wave 
-    [SerializeField]private List<SpawnIntruction> _waveIntruction;
+    [SerializeField] private List<SpawnIntruction> _waveIntruction;
     // the index current wave spawn
     private int _currentWaveIndex = 0;
 
@@ -24,7 +24,7 @@ public class Wave : TimerBehavior
 
     public void InitWave()
     {
-        if(this._waveIntruction.Count == 0)
+        if (this._waveIntruction.Count == 0)
         {
             Debug.LogError("====== THIS WAVE IS EMPTY =====");
             SafeCompleteEvent();
@@ -37,33 +37,34 @@ public class Wave : TimerBehavior
     private void SpawnCurrent()
     {
         Spawn();
-        if(!TrySetupNextWave())
+        if (!TrySetupNextWave())
         {
             this.SafeCompleteEvent();
             //
             this._currentWaveIndex = this._waveIntruction.Count;
             this.StopTimer(this._repeatTimer);
         }
-    }   
+    }
 
     private void Spawn()
     {
         SpawnIntruction intruction = this._waveIntruction[_currentWaveIndex];
-        Vector3 pos = new Vector3(4.42f, 0, 4.42f);
+        Vector3 pos = LevelManager.Instance.StartPoint;
         SpawnIntruction(intruction.EnemyPrefabs, pos);
     }
 
     private bool TrySetupNextWave()
     {
         bool hasNext = this._waveIntruction.Next(ref this._currentWaveIndex);
-        if(hasNext)
+        if (hasNext)
         {
             SpawnIntruction nextSpawnIntruction = this._waveIntruction[this._currentWaveIndex];
-            if(nextSpawnIntruction.DelayToSpawn <= 0)
+            if (nextSpawnIntruction.DelayToSpawn <= 0)
             {
                 SpawnCurrent();
             }
-            else{
+            else
+            {
                 this._repeatTimer.SetTimer(nextSpawnIntruction.DelayToSpawn);
             }
         }
@@ -77,7 +78,7 @@ public class Wave : TimerBehavior
 
     private void SpawnIntruction(EnemyConfig enemyConfig, Vector3 pos) //, Node startNode
     {
-        Vector3 startPosition =pos ;
+        Vector3 startPosition = pos;
         Enemy enemy = Instantiate(enemyConfig._enemyPrefabs).GetComponent<Enemy>();
         enemy.SetPath(PathManager.Instance.Paths);
         enemy.transform.position = startPosition;

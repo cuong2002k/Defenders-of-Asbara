@@ -18,17 +18,29 @@ public static class Loader
         onLoaderCallBack = () =>
         {
             GameObject loadingGameObject = new GameObject("Loading game object");
+            loadingGameObject.AddComponent<LoadingMonoBehaviour>().StartCoroutine(LoadSceneAsync(sceneName.ToString()));
+        };
+
+        SceneManager.LoadScene(SceneName.Loading.ToString());
+    }
+
+    public static void LoadScene(string sceneName)
+    {
+
+        onLoaderCallBack = () =>
+        {
+            GameObject loadingGameObject = new GameObject("Loading game object");
             loadingGameObject.AddComponent<LoadingMonoBehaviour>().StartCoroutine(LoadSceneAsync(sceneName));
         };
 
         SceneManager.LoadScene(SceneName.Loading.ToString());
     }
 
-    private static IEnumerator LoadSceneAsync(SceneName sceneName)
+    private static IEnumerator LoadSceneAsync(string sceneName)
     {
         yield return null;
 
-        asyncOperation = SceneManager.LoadSceneAsync(sceneName.ToString());
+        asyncOperation = SceneManager.LoadSceneAsync(sceneName);
 
         while (!asyncOperation.isDone)
         {
@@ -65,5 +77,9 @@ public enum SceneName
     MenuMain,
     Map,
     Level1,
-    Loading
+    Level2,
+    Level3,
+    Level4,
+    Loading,
+    CutScene
 }

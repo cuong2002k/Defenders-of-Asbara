@@ -10,33 +10,57 @@ public class Enemy : MonoBehaviour, IDamage
     [Header("Enemy Data")]
     [SerializeField] private EnemyData _enemyData;
     private int _speed;
-    [SerializeField] private int _health;
+    public int Speed => _speed;
+    [SerializeField] private float _health;
+    private float _maxHealth;
     private int _coinReceiver;
 
     [Header("Component")]
     private Rigidbody _enemyRB;
+    public Rigidbody EnemyRB => _enemyRB;
 
     [Header("Path moving")]
     private List<Node> _agent = new List<Node>();
+    public List<Node> Agent => _agent;
     private int _pathIndex = 0;
+    public int PathIndex => _pathIndex;
 
-    [Header("VFX")]
-    [SerializeField] private GameObject _hitEffect;
+    private ProcessBar _processBar;
 
-    private Target _target;
-    public Vector3 GetTargetPos => _target.CurrentTranform.position;
+    public StateMachine StateMachine { get; private set; }
+
+    public MoveState _moveState;
+
+    private void Awake()
+    {
+        this._processBar = GetComponentInChildren<ProcessBar>();
+        this._enemyRB = GetComponent<Rigidbody>();
+    }
 
     public event Action<Transform> OnDie;
     private void Start()
     {
         LevelManager.Instance.AddEnemyNumber();
-        _target = GetComponentInChildren<Target>();
+        Initialized();
+    }
+
+    private void Initialized()
+    {
+        InitStats();
+        _processBar.SetProcessBar(this._health / this._maxHealth);
         this.RegisterListener(EventID.OnUpdatePath, (param) => this.SetPath(param as List<Node>));
-        this._enemyRB = GetComponent<Rigidbody>();
+
+        //stateMachine
+        _moveState = new MoveState();
+        StateMachine = new StateMachine(_moveState, this);
+    }
+
+    private void InitStats()
+    {
         this._speed = this._enemyData.Speed;
         this._health = this._enemyData.Health;
         this._coinReceiver = this._enemyData.CoinReceiver;
-
+        this._maxHealth = this._health;
     }
 
     /// <summary>
@@ -52,40 +76,22 @@ public class Enemy : MonoBehaviour, IDamage
     {
         if (_pathIndex >= _agent.Count)
         {
-            LevelManager.Instance.MinusEnemyNumber();
-            LevelManager.Instance.AttackHomeBase(this._enemyData.DamageToDefense);
-            this.OnDie?.Invoke(this.transform);
-            Destroy(this.gameObject);
+            OnRemove();
             return;
         }
 
-        Vector3 positionMove = _agent[_pathIndex].GetWorldPosition();
-        float distance = Vector3.Distance(this.transform.position, positionMove);
-        if (distance <= 0.1f)
-        {
-            _pathIndex++;
-        }
+        this.StateMachine.CurrentState.OnUpdate(this);
 
+    }
+
+    public void NextIndex()
+    {
+        this._pathIndex++;
     }
 
     private void FixedUpdate()
     {
-        Movement();
-    }
-
-    private void Movement()
-    {
-        if (_pathIndex >= _agent.Count) return;
-        Vector3 positionMove = _agent[_pathIndex].GetWorldPosition();
-        Vector3 direction = (positionMove - this.transform.position).normalized;
-        Rotation(direction);
-        this._enemyRB.velocity = direction * this._speed;
-    }
-
-    private void Rotation(Vector3 direction)
-    {
-        Quaternion quaternion = Quaternion.LookRotation(direction);
-        this.transform.rotation = quaternion;
+        this.StateMachine.CurrentState.OnFixedUpdate(this);
     }
 
     /// <summary>
@@ -96,6 +102,7 @@ public class Enemy : MonoBehaviour, IDamage
     {
         int dameFinal = Mathf.Max(damage - this._enemyData.Armor, 1);
         _health -= dameFinal;
+        _processBar.SetProcessBar(this._health / this._maxHealth);
         if (_health <= 0)
         {
             LevelManager.Instance.AddCoin(this._coinReceiver);
@@ -111,8 +118,14 @@ public class Enemy : MonoBehaviour, IDamage
     private void OnDisable()
     {
         this.RemoveListener(EventID.OnUpdatePath, (param) => this.SetPath(param as List<Node>));
-
     }
 
+    private void OnRemove()
+    {
+        LevelManager.Instance.MinusEnemyNumber();
+        LevelManager.Instance.AttackHomeBase(this._enemyData.DamageToDefense);
+        this.OnDie?.Invoke(this.transform);
+        Destroy(this.gameObject);
+    }
 
 }

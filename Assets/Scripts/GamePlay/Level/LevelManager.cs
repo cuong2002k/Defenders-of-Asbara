@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(WaveManager))]
 public class LevelManager : Singleton<LevelManager>
 {
+    public SceneName _nameLevel;
 
     [Header("Wave infor")]
     private WaveManager _waveManager;
@@ -77,10 +78,11 @@ public class LevelManager : Singleton<LevelManager>
                 WinPanel winPanel = UIManager.GetView<WinPanel>() as WinPanel;
                 if (winPanel != null)
                 {
-                    winPanel.Initialize(_health, _maxHealth, this._Kill);
                     winPanel.Show();
+                    winPanel.Initialize(GetRewardStar(), this._Kill, this._nameLevel);
                 }
-                GameManager.Instance.ChangeState(GameState.PAUSE);
+                // GameManager.Instance.ChangeState(GameState.PAUSE);
+                SaveState();
                 break;
             case LevelState.LOSE:
                 Debug.Log("Lose");
@@ -142,6 +144,37 @@ public class LevelManager : Singleton<LevelManager>
         if (this._health <= 0)
         {
             this.ChangeLevelState(LevelState.LOSE);
+        }
+    }
+    #endregion
+
+    #region Reward
+    public int GetRewardStar()
+    {
+        if (this._health >= _maxHealth - _maxHealth * 0.2f)
+        {
+            return 3;
+        }
+        else if (_health >= _maxHealth - _maxHealth * 0.5f)
+        {
+            return 2;
+        }
+
+        return 1;
+    }
+
+    private void SaveState()
+    {
+        int maxStar = PlayerPrefs.GetInt(_nameLevel.ToString(), 0);
+        maxStar = Mathf.Max(maxStar, GetRewardStar());
+        PlayerPrefs.SetInt(this._nameLevel.ToString(), maxStar);
+
+        int curentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+
+        if (curentLevel < LevelMenuSelector._currentLevel + 1)
+        {
+            LevelMenuSelector._currentLevel++;
+            PlayerPrefs.SetInt("CurrentLevel", LevelMenuSelector._currentLevel);
         }
     }
     #endregion

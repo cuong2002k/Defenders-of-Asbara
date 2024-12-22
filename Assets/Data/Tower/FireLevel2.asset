@@ -21,7 +21,7 @@ MonoBehaviour:
   - StatusType: 5
     value: 3
   - StatusType: 8
-    value: 5.555556
+    value: 2
   - StatusType: 6
     value: 160
   - StatusType: 7

@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class WinPanel : ViewBase
 {
-    private int _kill = 0;
-    private int _star = 0;
     [SerializeField] private Star[] _stars;
 
     [SerializeField] private Button _back;
     [SerializeField] private Button _reset;
     [SerializeField] private Button _next;
 
+    [SerializeField] private ScoreUI killScoreUI;
+
+    private SceneName _sceneName;
 
     private void Start()
     {
@@ -21,35 +22,23 @@ public class WinPanel : ViewBase
 
     public override void Initialize()
     {
-        this.Hide();
+        // this.Hide();
         _back.onClick.AddListener(this.BackMainMenu);
+        _reset.onClick.AddListener(this.Reset);
+        _next.onClick.AddListener(NextLevel);
     }
 
-    public void Initialize(int Health, int maxHealth, int kill)
+    public void Initialize(int star, int killScore, SceneName sceneName)
     {
-        this._kill = kill;
-        if (Health >= maxHealth - maxHealth * 0.2f)
+        killScore = killScore + 50;
+        StartCoroutine(ShowStarReward(star));
+        if (killScoreUI != null)
         {
-            _star = 3;
-        }
-        else if (Health >= maxHealth - maxHealth * 0.5f)
-        {
-            _star = 2;
-        }
-        else
-        {
-            _star = 1;
+            killScoreUI.SetScoreText(killScore);
         }
 
-        for (int i = 0; i < _stars.Length; i++)
-        {
-            if (i < _star)
-            {
-                _stars[i].Show();
-            }
-        }
+        _sceneName = sceneName;
 
-        PlayerPrefs.SetInt("Level1", _star);
     }
 
     private void BackMainMenu()
@@ -59,6 +48,35 @@ public class WinPanel : ViewBase
 
     private void Reset()
     {
-        Loader.LoadScene(SceneName.Level1);
+
+        Loader.LoadScene(_sceneName);
+    }
+
+    private void NextLevel()
+    {
+        LevelMenuSelector._currentLevel++;
+        Loader.LoadScene("Level" + LevelMenuSelector._currentLevel);
+
+    }
+
+    private IEnumerator ShowStarReward(int star)
+    {
+        for (int i = 0; i < _stars.Length; i++)
+        {
+            if (i < star)
+            {
+                _stars[i].Show();
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+    }
+
+
+    private void OnDisable()
+    {
+        _back.onClick.RemoveListener(this.BackMainMenu);
+        _reset.onClick.RemoveListener(this.Reset);
+        _next.onClick.RemoveListener(NextLevel);
+
     }
 }

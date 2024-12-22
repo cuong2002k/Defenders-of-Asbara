@@ -5,20 +5,19 @@ using UnityEngine.VFX;
 
 public class Fire : TowerBase
 {
-    protected override void Start()
+    private PlayAudioControl _playAudioControl;
+    protected override void Awake()
     {
-        base.Start();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
+        base.Awake();
+        _playAudioControl = GetComponent<PlayAudioControl>();
     }
 
     protected override void Shoot()
     {
-        GameObject bulletInstance = this.SpawnPrefabs(this._bulletPrefabs, this._attackTranform[0].position);
+        GameObject bulletInstance = this.SpawnPrefabs(this._bulletPrefabs, this.GetFirstAttackPoint().position);
         bulletInstance.transform.SetParent(this._targetRotation.Turret);
+        _playAudioControl.PlayAudio(SoundType.ATTACK);
+        bulletInstance.GetComponent<BulletBase>().Initialized(this.finalDamage);
         bulletInstance.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 }

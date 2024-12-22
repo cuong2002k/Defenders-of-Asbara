@@ -14,29 +14,23 @@ public class LevelMenuSelector : MonoBehaviour
         for (int i = 0; i < _levelSelectors.Length; i++)
         {
             _levelSelectors[i].Initialize();
+            _levelSelectors[i].setIndex(i);
         }
         UnlockLevel();
     }
 
-    [ContextMenu("Set Level")]
     private void UnlockLevel()
     {
-        if (_currentLevel > _levelSelectors.Length) return;
-        _currentLevel++;
+        _currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
         for (int i = 0; i < _levelSelectors.Length; i++)
         {
-            if (i < _currentLevel)
+            if (i < _currentLevel && i < _levelSelectors.Length)
             {
                 _levelSelectors[i].Unlock();
                 int starSave = PlayerPrefs.GetInt("Level" + (i + 1), 0);
                 _levelSelectors[i].SetStar(starSave);
             }
         }
-    }
-
-    private void SetStar(int star)
-    {
-        _levelSelectors[_currentLevel].SetStar(star);
     }
 
 }

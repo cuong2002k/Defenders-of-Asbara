@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd0b6b99f00acc45b6a824365d32221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _towerData: {fileID: 11400000, guid: 8ccb2bc029fd1cb4f94f653d3e0bc49b, type: 2}
+  _towerData: {fileID: 11400000, guid: e3d0e36f5cfede84dbba7eeae8ce77a2, type: 2}
   _turret: {fileID: 2325077621374681450}
   _attackTranform:
   - {fileID: 3882559251472790699}
