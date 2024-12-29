@@ -20,7 +20,7 @@ public class MoveState : AiState
 
         Vector3 direction = (positionMove - enemy.transform.position).normalized;
         Rotation(enemy, direction);
-        enemy.EnemyRB.velocity = direction * enemy.Speed;
+        enemy.EnemyRB.velocity = direction * enemy.Speed * Time.deltaTime;
     }
 
     public void OnUpdate(Enemy enemy)

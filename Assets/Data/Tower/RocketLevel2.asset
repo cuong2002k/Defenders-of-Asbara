@@ -15,7 +15,7 @@ MonoBehaviour:
   TowerPrefabs: {fileID: 293428120647041914, guid: 801ab5abe12753c42bb98bda6f0a767b, type: 3}
   _statsModifiers:
   - StatusType: 0
-    value: 90
+    value: 100
   - StatusType: 1
     value: 135
   - StatusType: 8

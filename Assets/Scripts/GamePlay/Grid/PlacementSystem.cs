@@ -186,9 +186,17 @@ public class PlacementSystem : Singleton<PlacementSystem>
     {
         if (_inputManager.EscButton)
         {
-            _isBuilding = false;
-            _ghostTower.OnDespawn();
-            UpdatePathWhenView();
+            if (_isBuilding)
+            {
+                _isBuilding = false;
+                _ghostTower.OnDespawn();
+                UpdatePathWhenView();
+            }
+            else
+            {
+                PausePanel pausePanel = UIManager.GetView<PausePanel>() as PausePanel;
+                pausePanel.Show();
+            }
         }
     }
 

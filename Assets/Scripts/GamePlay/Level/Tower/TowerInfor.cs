@@ -74,7 +74,7 @@ public class TowerInfor : ViewBase
         _currentCoin = currentCoin;
 
         if (_currentTowerbaseSelect == null) return;
-        if (_currentCoin <= _currentTowerbaseSelect.GetNextCostLevel)
+        if (_currentCoin < _currentTowerbaseSelect.GetNextCostLevel)
         {
             this._upgradeTextButton.color = Color.red;
             this._upgradeButton.enabled = false;

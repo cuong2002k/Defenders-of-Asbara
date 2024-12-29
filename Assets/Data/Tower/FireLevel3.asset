@@ -15,15 +15,15 @@ MonoBehaviour:
   TowerPrefabs: {fileID: 8875454841488178514, guid: 8a2a4744e6b52a247a2575e41065f34a, type: 3}
   _statsModifiers:
   - StatusType: 0
-    value: 35
+    value: 30
   - StatusType: 1
-    value: 57
+    value: 30
   - StatusType: 5
     value: 3
   - StatusType: 8
     value: 2
   - StatusType: 6
-    value: 320
+    value: 150
   - StatusType: 7
-    value: 220
+    value: 100
   RotationSpeed: 30

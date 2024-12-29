@@ -9,8 +9,8 @@ public class Enemy : MonoBehaviour, IDamage
 {
     [Header("Enemy Data")]
     [SerializeField] private EnemyData _enemyData;
-    private int _speed;
-    public int Speed => _speed;
+    private float _speed;
+    public float Speed => _speed;
     [SerializeField] private float _health;
     private float _maxHealth;
     private int _coinReceiver;
@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour, IDamage
     public List<Node> Agent => _agent;
     private int _pathIndex = 0;
     public int PathIndex => _pathIndex;
+
+    private bool isAlive = true;
 
     private ProcessBar _processBar;
 
@@ -103,8 +105,9 @@ public class Enemy : MonoBehaviour, IDamage
         int dameFinal = Mathf.Max(damage - this._enemyData.Armor, 1);
         _health -= dameFinal;
         _processBar.SetProcessBar(this._health / this._maxHealth);
-        if (_health <= 0)
+        if (_health <= 0 && isAlive)
         {
+            isAlive = false;
             LevelManager.Instance.AddCoin(this._coinReceiver);
             LevelManager.Instance.MinusEnemyNumber();
             this.OnDie?.Invoke(this.transform);
@@ -122,8 +125,8 @@ public class Enemy : MonoBehaviour, IDamage
 
     private void OnRemove()
     {
-        LevelManager.Instance.MinusEnemyNumber();
         LevelManager.Instance.AttackHomeBase(this._enemyData.DamageToDefense);
+        LevelManager.Instance.MinusEnemyNumber();
         this.OnDie?.Invoke(this.transform);
         Destroy(this.gameObject);
     }

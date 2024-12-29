@@ -17,13 +17,13 @@ MonoBehaviour:
   - StatusType: 0
     value: 90
   - StatusType: 1
-    value: 135
+    value: 90
   - StatusType: 5
     value: 4
   - StatusType: 8
     value: 0.6
   - StatusType: 6
-    value: 400
+    value: 200
   - StatusType: 7
-    value: 280
+    value: 125
   RotationSpeed: 30

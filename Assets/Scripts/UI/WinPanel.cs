@@ -18,6 +18,7 @@ public class WinPanel : ViewBase
     private void Start()
     {
         this.Initialize();
+
     }
 
     public override void Initialize()
@@ -26,6 +27,11 @@ public class WinPanel : ViewBase
         _back.onClick.AddListener(this.BackMainMenu);
         _reset.onClick.AddListener(this.Reset);
         _next.onClick.AddListener(NextLevel);
+
+        if (LevelMenuSelector._currentLevel >= LevelMenuSelector.MaxLevel)
+        {
+            _next.gameObject.SetActive(false);
+        }
     }
 
     public void Initialize(int star, int killScore, SceneName sceneName)
@@ -54,7 +60,9 @@ public class WinPanel : ViewBase
 
     private void NextLevel()
     {
+        Debug.Log(LevelMenuSelector._currentLevel);
         LevelMenuSelector._currentLevel++;
+        Debug.Log(LevelMenuSelector._currentLevel);
         Loader.LoadScene("Level" + LevelMenuSelector._currentLevel);
 
     }

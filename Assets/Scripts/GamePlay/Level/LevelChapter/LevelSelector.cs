@@ -10,7 +10,7 @@ public class LevelSelector : ViewBase
     [SerializeField] private Star[] _stars;
     [SerializeField] private bool _unlock = false;
     [SerializeField] private int _star = 0;
-    int index = 0;
+    [SerializeField] int index = 0;
 
     private void Awake()
     {
@@ -25,7 +25,8 @@ public class LevelSelector : ViewBase
 
     private void SelectLevel()
     {
-        LevelMenuSelector._currentLevel = this.index + 1;
+        LevelMenuSelector._currentLevel = this.index;
+        Debug.Log(LevelMenuSelector._currentLevel);
         Loader.LoadScene(this._sceneName);
     }
 

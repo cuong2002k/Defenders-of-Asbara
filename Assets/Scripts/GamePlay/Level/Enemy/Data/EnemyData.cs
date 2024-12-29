@@ -7,7 +7,7 @@ public class EnemyData : ScriptableObject
     [Tooltip("Health of enemy")]
     public int Health;
     [Tooltip("Speed movement of enemy")]
-    public int Speed;
+    public float Speed;
     [Tooltip("Armor defense enemy")]
     public int Armor;
     [Tooltip("Coin get when enemy die")]

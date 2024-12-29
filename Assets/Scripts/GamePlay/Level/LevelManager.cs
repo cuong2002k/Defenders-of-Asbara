@@ -85,7 +85,12 @@ public class LevelManager : Singleton<LevelManager>
                 SaveState();
                 break;
             case LevelState.LOSE:
-                Debug.Log("Lose");
+                LostPanel lostPanel = UIManager.GetView<LostPanel>() as LostPanel;
+                if (lostPanel != null)
+                {
+                    lostPanel.Show();
+                }
+                GameManager.Instance.ChangeState(GameState.PAUSE);
                 break;
             case LevelState.ALL_ENEMIES_SPAWN:
                 if (_enemyNumber == 0)
@@ -141,6 +146,7 @@ public class LevelManager : Singleton<LevelManager>
     public void AttackHomeBase(int damage)
     {
         this._health -= damage;
+        // this._health = Mathf.Max(_health, 0);
         if (this._health <= 0)
         {
             this.ChangeLevelState(LevelState.LOSE);
@@ -151,7 +157,7 @@ public class LevelManager : Singleton<LevelManager>
     #region Reward
     public int GetRewardStar()
     {
-        if (this._health >= _maxHealth - _maxHealth * 0.2f)
+        if (this._health == _maxHealth)
         {
             return 3;
         }

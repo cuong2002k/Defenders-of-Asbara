@@ -9,14 +9,17 @@ public class LevelMenuSelector : MonoBehaviour
 
     [SerializeField] private LevelSelector[] _levelSelectors;
 
+    public static int MaxLevel = 0;
+
     private void Start()
     {
         for (int i = 0; i < _levelSelectors.Length; i++)
         {
             _levelSelectors[i].Initialize();
-            _levelSelectors[i].setIndex(i);
+            _levelSelectors[i].setIndex(i + 1);
         }
         UnlockLevel();
+        MaxLevel = _levelSelectors.Length;
     }
 
     private void UnlockLevel()

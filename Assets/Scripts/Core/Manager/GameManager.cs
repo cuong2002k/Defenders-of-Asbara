@@ -6,6 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     private GameState _gameState;
     public GameState GameState => _gameState;
+    public int timeScale = 1;
 
     private void Start()
     {
@@ -43,6 +44,6 @@ public class GameManager : Singleton<GameManager>
 
     private void PlayGame()
     {
-        Time.timeScale = 1;
+        Time.timeScale = timeScale;
     }
 }
